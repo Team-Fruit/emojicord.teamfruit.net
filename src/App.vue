@@ -5,24 +5,17 @@
 </template>
 
 <script>
-import Home from './components/Home'
 
-export default {
-  name: 'App',
-  components: {
-    Home
-  },
-  data () {
-    return {
-      //
-    }
-  }
-}
 </script>
 
 <style>
   #app {
     background-color: #2C2F33;
+    color: #99AAB5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
   }
 </style>
 
