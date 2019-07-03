@@ -12,7 +12,7 @@ export default {
         }
     },
     actions: {
-        async login({ commit }, token) {
+        login({ commit }, token) {
             commit('create', token)
         }
     },
