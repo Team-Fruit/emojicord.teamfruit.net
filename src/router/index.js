@@ -26,6 +26,9 @@ const router = new Router({
         if (query.token)
           Store.dispatch('auth/login', query.token)
 
+        if (query.error_description)
+          Store.dispatch('alert/create', { message: query.error_description, type: 'error' })
+
         return { path: '/', query: null }
       },
       meta: {
