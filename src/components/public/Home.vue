@@ -6,7 +6,7 @@
     >
       <v-flex xs12>
         <v-img
-          :src="require('../assets/logo.svg')"
+          :src="require('@/assets/logo.svg')"
           class="my-3"
           contain
           height="500"
@@ -15,7 +15,7 @@
 
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">Emojicord</h1>
-          <a href="https://emojicord.teamfruit.net/api/auth">
+          <a href="https://emojicord.teamfruit.net/api/auth/login">
             <v-btn color="#7289DA">Login with Discord</v-btn>
           </a>
       </v-flex>
@@ -23,6 +23,14 @@
   </v-container>
 </template>
 
-<style>
+<script>
+export default {
+  name: 'home',
+  data () {
+    return {
 
-</style>
+    }
+  }
+}
+</script>
+

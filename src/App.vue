@@ -5,8 +5,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
+export default {
+  computed: {
+    ...mapGetters({
+      isLoggedin: 'auth/isLoggedin'
+    })
+  }
+}
 </script>
+
 
 <style>
   #app {
