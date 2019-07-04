@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/public/Home'
-import Guilds from '@/components/private/Guilds'
+import Home from '@/components/Home'
+import User from '@/components/user/User'
+import Guild from '@/components/user/Guild'
 
 import Store from '@/store'
 
@@ -37,15 +38,26 @@ const router = new Router({
       }
     },
     {
-      path: '/guilds',
-      component: Guilds
+      path: '/user',
+      component: User,
+      children: [
+        {
+          path: 'guild',
+          name: 'guild',
+          component: Guild
+        },
+        {
+          path: '',
+          redirect: { name: 'guild' }
+        }
+      ]
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
-    next('/guilds')
+    next('/user')
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
     next()
   else
