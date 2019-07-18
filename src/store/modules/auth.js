@@ -32,6 +32,9 @@ export default {
         isLoggedin: state => {
             return state.token ? true : false
         },
+        isExpired: state => {
+            return Date.now()/1000 > state.user.exp
+        },
         getUser: state => {
             return state.user
         },

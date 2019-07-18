@@ -56,7 +56,10 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
+  if (!to.matched.some(page => page.meta.isPublic) && Date.now()/1000 >   Store.state.auth.user.exp) {
+    Store.dispatch('alert/create', { message: "The session has expired. Please log in again.", type: 'error' })
+    next('/')
+  } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
     next('/user')
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
     next()
