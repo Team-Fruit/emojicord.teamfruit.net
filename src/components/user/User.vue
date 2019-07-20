@@ -1,9 +1,9 @@
 <template>
   <div>
     <Header></Header>
-    <Alert></Alert>
     <v-content>
       <v-container>
+        <Alert></Alert>
         <router-view></router-view>
       </v-container>
     </v-content>
