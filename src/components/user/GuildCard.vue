@@ -5,6 +5,7 @@
     color="#23272A"
     max-width="256px"
     height="100%"
+    class="mx-auto"
   >
     <v-img v-if="icon" :src="getIconURL()" flood>
       <v-container v-if="hover" fluid pa-0>

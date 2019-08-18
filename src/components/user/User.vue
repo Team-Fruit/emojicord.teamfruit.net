@@ -1,12 +1,10 @@
 <template>
   <div>
     <Header></Header>
-    <v-content>
-      <v-container>
-        <Alert></Alert>
-        <router-view></router-view>
-      </v-container>
-    </v-content>
+    <!-- <v-content class="fill-height"> -->
+      <Alert></Alert>
+      <router-view></router-view>
+    <!-- </v-content> -->
   </div>
 </template>
 
