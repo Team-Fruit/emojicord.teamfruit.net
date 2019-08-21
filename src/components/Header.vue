@@ -3,9 +3,9 @@
     <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
     <div class="ml-4"></div>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Guild</v-btn>
-      <v-btn flat>Emoji</v-btn>
-      <v-btn flat>Download</v-btn>
+      <v-btn text>Guild</v-btn>
+      <v-btn text>Emoji</v-btn>
+      <v-btn text>Download</v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-menu
@@ -19,7 +19,7 @@
       <template v-slot:activator="{ on }">
         <v-img :src="avater" contain max-width="30px" v-on="on"></v-img>
       </template>
-      <v-card color="#18191c" width="252px" height="52px" class="px-3 py-2">
+      <v-card color="#18191c" width="252px" height="52px" class="px-5 py-2">
         <v-container class="pa-0 ma-0">
           <v-layout row wrap>
             <v-flex xs9 d-flex>
