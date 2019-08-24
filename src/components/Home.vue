@@ -9,9 +9,7 @@
 
         <v-flex text-center mb-4>
           <h1 class="display-2 font-weight-bold mb-3">Emojicord</h1>
-          <a href="https://emojicord.teamfruit.net/api/auth/login">
-            <v-btn color="#7289DA">Login with Discord</v-btn>
-          </a>
+            <v-btn color="#7289DA" href="https://emojicord.teamfruit.net/api/auth/login">Login with Discord</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
