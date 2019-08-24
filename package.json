@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.5",
+    "@mdi/font": "^4.1.95",
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-service": "^3.8.0",

@@ -1,13 +1,38 @@
 <template>
-  <v-container v-if="loading" fill-height>
-    <v-layout row wrap align-center>
-      <v-progress-linear :indeterminate="true" class="fill-height" style="margin-bottom: 98px"></v-progress-linear>
-    </v-layout>
-  </v-container>
-  <v-container v-else fill-height grid-list-md>
+  <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+  <v-container v-else grid-list-md>
+    <v-row align="center" justify="space-around" class="px-4">
+      <p class="white--text ma-0">Shows</p>
+      <v-checkbox v-model="ready" label="Ready" color="success" class="mx-2" dark></v-checkbox>
+      <v-checkbox v-model="invite" label="Bot Inviteable" color="warning" class="mx-2" dark></v-checkbox>
+      <v-checkbox
+        v-model="permission"
+        label="Not Enough Permissions"
+        color="error"
+        class="mx-2"
+        dark
+      ></v-checkbox>
+    </v-row>
     <transition-group name="flip-list" tag="div" class="layout row wrap">
-      <v-flex xl2 lg3 md4 sm6 xs6 flexbox justify-end v-for="guild in guilds" :key="guild.id">
-        <GuildCard v-bind:id="guild.id" v-bind:name="guild.name" v-bind:icon="guild.icon"></GuildCard>
+      <v-flex
+        xl3
+        lg4
+        md6
+        sm12
+        flexbox
+        justify-end
+        v-for="guild in filteredGuilds"
+        :key="guild.id"
+        class="list-item"
+      >
+        <GuildCard
+          v-bind:id="guild.id"
+          v-bind:name="guild.name"
+          v-bind:icon="guild.icon"
+          v-bind:isOwner="guild.owner"
+          v-bind:botExists="guild.botexists"
+          v-bind:canInvite="guild.caninvite"
+        ></GuildCard>
       </v-flex>
     </transition-group>
   </v-container>
@@ -24,7 +49,10 @@ export default {
   data() {
     return {
       loading: true,
-      guilds: {}
+      guilds: {},
+      ready: true,
+      invite: true,
+      permission: true
     };
   },
   mounted() {
@@ -35,6 +63,16 @@ export default {
       })
       .catch(err => err);
   },
+  computed: {
+    filteredGuilds() {
+      return this.guilds.filter(
+        guild =>
+          (guild.botexists && this.ready) ||
+          (guild.caninvite && this.invite && !guild.botexists) ||
+          (!guild.caninvite && this.permission && !guild.botexists)
+      );
+    }
+  },
   methods: {
     ...mapActions("http", ["get"])
   }
@@ -42,18 +80,23 @@ export default {
 </script>
 
 <style>
-.flip-list-enter-active,
-.flip-list-leave-active {
-  transition: opacity 1s;
+.list-item {
+  transition: all 1s;
 }
 
 .flip-list-enter,
 .flip-list-leave-to {
   opacity: 0;
-}
-
-.flip-list-move {
   transition: transform 1s;
 }
+
+.flip-list-leave-active {
+  opacity: 0;
+  position: absolute;
+}
+
+/* .flip-list-move {
+  transition: transform 1s;
+} */
 </style>
 

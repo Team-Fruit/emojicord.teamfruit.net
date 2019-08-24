@@ -3,7 +3,9 @@
     <Header></Header>
     <!-- <v-content class="fill-height"> -->
       <Alert></Alert>
+      <!-- <v-contianer fill-height> -->
       <router-view></router-view>
+      <!-- </v-contianer> -->
     <!-- </v-content> -->
   </div>
 </template>
