@@ -1,30 +1,5 @@
 <template>
-  <!-- <v-card
-    v-on:mouseover="mouseover"
-    v-on:mouseleave="mouseleave"
-    color="#23272A"
-    max-width="256px"
-    height="100%"
-    class="mx-auto"
-  >
-    <v-img v-if="icon" :src="getIconURL()" flood>
-      <v-container v-if="hover" fluid pa-0>
-        <v-layout>
-          <v-flex xs12 pa-2 class="servername">
-            <span class="headline white--text">{{ name }}</span>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-img>
-    <v-container v-else class="headline white--text" fill-height fluid>
-      <v-layout align-center justify-center fill-height>
-        <v-flex xs12 pa-2 class="text-xs-center">
-          <span class="headline white--text">{{ name }}</span>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-card>-->
-  <v-card class="mx-auto" color="#23272A">
+  <v-card class="mx-auto fill-height" color="#23272A">
     <v-row class="py-4 pl-4">
       <v-col class="shrink">
         <v-img v-if="icon" height="128" width="128" :src="getIconURL()"></v-img>
@@ -43,7 +18,7 @@
           <v-row justify="end">
             <v-col>
               <v-btn v-if="botExists" depressed color="success">Ready</v-btn>
-              <v-btn v-else-if="canInvite" depressed color="warning">Invite Bot</v-btn>
+              <v-btn v-else-if="canInvite" depressed color="warning" :href="getInviteURL()">Invite Bot</v-btn>
               <v-btn v-else depressed color="error">Copy Invie Link</v-btn>
             </v-col>
           </v-row>
@@ -66,6 +41,9 @@ export default {
   methods: {
     getIconURL() {
       return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.png`;
+    },
+    getInviteURL() {
+      return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&redirect_uri=https%3A%2F%2Femojicord.teamfruit.net%2Fuser%2Fguild&scope=bot&response_type=code&guild_id=${this.id}`;
     }
   }
 };
