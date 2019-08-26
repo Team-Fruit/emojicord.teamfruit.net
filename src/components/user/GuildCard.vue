@@ -56,6 +56,8 @@ export default {
   },
   methods: {
     getIconURL() {
+      if (this.icon.startsWith("a_"))
+        return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.gif`;
       return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.png`;
     },
     getInviteURL() {
