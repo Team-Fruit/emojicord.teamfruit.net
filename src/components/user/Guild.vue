@@ -65,12 +65,25 @@ export default {
   },
   computed: {
     filteredGuilds() {
-      return this.guilds.filter(
-        guild =>
-          (guild.botexists && this.ready) ||
-          (guild.caninvite && this.invite && !guild.botexists) ||
-          (!guild.caninvite && this.permission && !guild.botexists)
-      );
+      return this.guilds
+        .filter(
+          guild =>
+            (guild.botexists && this.ready) ||
+            (guild.caninvite && this.invite && !guild.botexists) ||
+            (!guild.caninvite && this.permission && !guild.botexists)
+        )
+        .sort((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        })
+        .sort((a, b) => {
+          if (a.botexists && !b.botexists) return -1;
+          if (!a.botexists && b.botexists) return 1;
+          if (a.caninvite && !b.caninvite) return -1;
+          if (!a.caninvite && b.caninvite) return 1;
+          return 0;
+        });
     }
   },
   methods: {

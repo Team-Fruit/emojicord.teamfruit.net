@@ -57,8 +57,8 @@ export default {
   methods: {
     getIconURL() {
       if (this.icon.startsWith("a_"))
-        return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.gif`;
-      return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.png`;
+        return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.gif?size=128`;
+      return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.png?size=128`;
     },
     getInviteURL() {
       return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&scope=bot&guild_id=${this.id}`;
