@@ -18,7 +18,7 @@
         xl3
         lg4
         md6
-        sm12
+        xs12
         flexbox
         justify-end
         v-for="guild in filteredGuilds"
