@@ -1,5 +1,5 @@
 <template>
-  <v-alert :value="exits" :type="type" dark dismissible="true" class="alert">{{ message }}</v-alert>
+  <v-alert :value="exits" :type="type" dark dismissible class="alert">{{ message }}</v-alert>
 </template>
 
 <script>
@@ -21,5 +21,6 @@ export default {
 <style scoped>
 .alert {
   border-radius: 0;
+  margin-bottom: 0;
 }
 </style>
