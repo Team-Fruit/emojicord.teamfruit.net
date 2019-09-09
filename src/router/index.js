@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import User from '@/components/user/User'
+// import User from '@/components/user/User'
 import Guild from '@/components/user/Guild'
 
 import Store from '@/store'
@@ -38,20 +38,25 @@ const router = new Router({
       }
     },
     {
-      path: '/user',
-      component: User,
-      children: [
-        {
-          path: 'guild',
-          name: 'guild',
-          component: Guild
-        },
-        {
-          path: '',
-          redirect: { name: 'guild' }
-        }
-      ]
+      path: '/guilds',
+      name: 'guilds',
+      component: Guild
     }
+    // {
+    //   path: '/user',
+    //   component: User,
+    //   children: [
+    //     {
+    //       path: 'guild',
+    //       name: 'guild',
+    //       component: Guild
+    //     },
+    //     {
+    //       path: '',
+    //       redirect: { name: 'guild' }
+    //     }
+    //   ]
+    // }
   ]
 })
 
@@ -60,7 +65,7 @@ router.beforeEach((to, from, next) => {
     Store.dispatch('alert/create', { message: "The session has expired. Please log in again.", type: 'error' })
     next('/')
   } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
-    next('/user')
+    next('/dashboard')
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
     next()
   else
