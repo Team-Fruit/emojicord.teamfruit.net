@@ -4,12 +4,14 @@
       <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
       <div class="ml-4"></div>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn text>Guild</v-btn>
-        <v-btn text>Emoji</v-btn>
-        <v-btn text>Download</v-btn>
+        <v-btn text>Guilds</v-btn>
+        <v-btn text>Emojis</v-btn>
+        <v-btn text>Downloads</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-menu
+        v-if="login"
+        v-model="menu"
         bottom
         dark
         left
@@ -34,13 +36,20 @@
               </v-flex>
               <v-flex xs3 d-flex>
                 <v-layout align-center justify-center>
-                  <div class="logout" v-on:click="logout">Log Out</div>
+                  <div class="logout" @click="logout">Log Out</div>
                 </v-layout>
               </v-flex>
             </v-layout>
           </v-container>
         </v-card>
       </v-menu>
+      <v-btn
+        v-else
+        rounded
+        outlined
+        dark
+        href="https://emojicord.teamfruit.net/api/auth/login"
+      >Login</v-btn>
     </v-toolbar>
     <Alert></Alert>
   </div>
@@ -54,8 +63,12 @@ export default {
   components: {
     Alert
   },
+  data: () => ({
+    menu: false
+  }),
   methods: {
     logout() {
+      this.menu = false;
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
     }
@@ -63,7 +76,8 @@ export default {
   computed: {
     ...mapGetters("auth", {
       avater: "getAvaterURL",
-      user: "getUser"
+      user: "getUser",
+      login: "isLoggedin"
     })
   }
 };
