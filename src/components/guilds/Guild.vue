@@ -40,7 +40,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import GuildCard from "@/components/user/GuildCard";
+import GuildCard from "@/components/guilds/GuildCard";
 
 export default {
   components: {

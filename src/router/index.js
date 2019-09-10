@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 // import User from '@/components/user/User'
-import Guild from '@/components/user/Guild'
+import Guild from '@/components/guilds/Guild'
 import NotFound from '@/components/NotFound'
 
 import Store from '@/store'
