@@ -7,8 +7,8 @@
       <div class="ml-4"></div>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn text v-bind="{ disabled: !login }" to="/guilds">Guilds</v-btn>
-        <v-btn text v-bind="{ disabled: !login }">Emojis</v-btn>
-        <v-btn text v-bind="{ disabled: !login }">Downloads</v-btn>
+        <v-btn text v-bind="{ disabled: !login }" to="/emojis">Emojis</v-btn>
+        <v-btn text v-bind="{ disabled: !login }" to="/downloads">Downloads</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-menu
