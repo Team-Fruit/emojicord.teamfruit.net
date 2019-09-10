@@ -1,12 +1,14 @@
 <template>
   <div>
     <v-toolbar dark color="#202225" height="60px" class="py-0 toolbar">
+      <router-link to="/">
       <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
+      </router-link>
       <div class="ml-4"></div>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn text>Guilds</v-btn>
-        <v-btn text>Emojis</v-btn>
-        <v-btn text>Downloads</v-btn>
+        <v-btn text v-bind="{ disabled: !login }" to="/guilds">Guilds</v-btn>
+        <v-btn text v-bind="{ disabled: !login }">Emojis</v-btn>
+        <v-btn text v-bind="{ disabled: !login }">Downloads</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-menu
@@ -67,6 +69,9 @@ export default {
     menu: false
   }),
   methods: {
+    top() {
+
+    },
     logout() {
       this.menu = false;
       this.$store.dispatch("auth/logout");
