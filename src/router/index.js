@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 // import User from '@/components/user/User'
 import Guild from '@/components/user/Guild'
+import NotFound from '@/components/NotFound'
 
 import Store from '@/store'
 
@@ -41,7 +42,7 @@ const router = new Router({
       path: '/guilds',
       name: 'guilds',
       component: Guild
-    }
+    },
     // {
     //   path: '/user',
     //   component: User,
@@ -57,6 +58,11 @@ const router = new Router({
     //     }
     //   ]
     // }
+    {
+      path: '*',
+      name: 'notfound',
+      component:NotFound
+    }
   ]
 })
 
