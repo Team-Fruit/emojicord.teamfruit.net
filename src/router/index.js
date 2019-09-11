@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-// import User from '@/components/user/User'
+import Dashboard from '@/components/Dashboard'
 import Guild from '@/components/guilds/Guild'
 import NotFound from '@/components/NotFound'
 
@@ -37,6 +37,11 @@ const router = new Router({
         isPublic: true,
         isPublicOnly: true
       }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/guilds',
