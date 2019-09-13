@@ -1,58 +1,61 @@
 <template>
-  <div>
-    <v-toolbar dark color="#202225" height="60px" class="py-0 toolbar">
-      <router-link to="/">
-      <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
-      </router-link>
-      <div class="ml-4"></div>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn text v-bind="{ disabled: !login }" to="/guilds">Guilds</v-btn>
-        <v-btn text v-bind="{ disabled: !login }" to="/emojis">Emojis</v-btn>
-        <v-btn text v-bind="{ disabled: !login }" to="/downloads">Downloads</v-btn>
-      </v-toolbar-items>
-      <v-spacer></v-spacer>
-      <v-menu
-        v-if="login"
-        v-model="menu"
-        bottom
-        dark
-        left
-        offset-y
-        transition="slide-y-transition"
-        :close-on-content-click="false"
-      >
-        <template v-slot:activator="{ on }">
-          <v-img :src="avater" contain max-width="30px" v-on="on"></v-img>
-        </template>
-        <v-card color="#18191c" width="252px" height="52px" class="px-5 py-2">
-          <v-container class="pa-0 ma-0">
-            <v-layout row wrap>
-              <v-flex xs9 d-flex>
-                <v-layout justify-center column>
-                  <div class="as">Logged in as</div>
-                  <div>
-                    <span class="username">{{ user.username }}</span>
-                    <span class="discriminator">#{{ user.discriminator }}</span>
-                  </div>
-                </v-layout>
-              </v-flex>
-              <v-flex xs3 d-flex>
-                <v-layout align-center justify-center>
-                  <div class="logout" @click="logout">Log Out</div>
-                </v-layout>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-      </v-menu>
-      <v-btn
-        v-else
-        rounded
-        outlined
-        dark
-        href="https://emojicord.teamfruit.net/api/auth/login"
-      >Login</v-btn>
-    </v-toolbar>
+  <div class="root elevation-6">
+    <v-container class="pa-0">
+      <v-toolbar dark flat color="#202225" height="60px" class="py-0 toolbar">
+        <router-link to="/">
+          <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
+        </router-link>
+        <div class="ml-4"></div>
+        <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn text v-bind="{ disabled: !login }" to="/guilds">Guilds</v-btn>
+          <v-btn text v-bind="{ disabled: !login }" to="/emojis">Emojis</v-btn>
+          <v-btn text v-bind="{ disabled: !login }" to="/downloads">Downloads</v-btn>
+        </v-toolbar-items>
+        <v-spacer></v-spacer>
+        <v-menu
+          v-if="login"
+          v-model="menu"
+          bottom
+          dark
+          left
+          offset-y
+          transition="slide-y-transition"
+          :close-on-content-click="false"
+        >
+          <template v-slot:activator="{ on }">
+            <v-img :src="avater" contain max-width="30px" v-on="on"></v-img>
+          </template>
+          <v-card color="#18191c" width="252px" height="52px" class="px-5 py-2">
+            <v-container class="pa-0 ma-0">
+              <v-layout row wrap>
+                <v-flex xs9 d-flex>
+                  <v-layout justify-center column>
+                    <div class="as">Logged in as</div>
+                    <div>
+                      <span class="username">{{ user.username }}</span>
+                      <span class="discriminator">#{{ user.discriminator }}</span>
+                    </div>
+                  </v-layout>
+                </v-flex>
+                <v-flex xs3 d-flex>
+                  <v-layout align-center justify-center>
+                    <div class="logout" @click="logout">Log Out</div>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card>
+        </v-menu>
+        <v-btn
+          v-else
+          rounded
+          outlined
+          dark
+          href="https://emojicord.teamfruit.net/api/auth/login"
+        ><v-icon left 
+        small>fab fa-discord</v-icon>Login</v-btn>
+      </v-toolbar>
+    </v-container>
     <Alert></Alert>
   </div>
 </template>
@@ -69,9 +72,7 @@ export default {
     menu: false
   }),
   methods: {
-    top() {
-
-    },
+    top() {},
     logout() {
       this.menu = false;
       this.$store.dispatch("auth/logout");
@@ -89,6 +90,10 @@ export default {
 </script>
 
 <style>
+.root {
+  background-color: #202225;
+}
+
 .as {
   font-size: 12px;
   color: #b9bbbe;

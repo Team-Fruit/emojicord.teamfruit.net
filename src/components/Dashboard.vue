@@ -20,8 +20,7 @@
                     <v-btn class="mr-2 text-none" color="#de6a3b" dark disabled>CurseForge</v-btn>
                     <v-btn
                       class="mr-2 text-none"
-                      color="grey darken-2"
-                      dark
+                      color="white"
                       href="https://github.com/Team-Fruit/Emojicord"
                     >
                       <v-icon left>fab fa-github</v-icon>GitHub
