@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Dashboard from '@/components/Dashboard'
+import Home from '@/components/home/Home'
 import Guild from '@/components/guilds/Guild'
 import NotFound from '@/components/NotFound'
 
@@ -16,8 +15,7 @@ const router = new Router({
       path: '/',
       component: Home,
       meta: {
-        isPublic: true,
-        isPublicOnly: true
+        isPublic: true
       }
     },
     {
@@ -37,11 +35,6 @@ const router = new Router({
         isPublic: true,
         isPublicOnly: true
       }
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard
     },
     {
       path: '/guilds',
@@ -66,17 +59,17 @@ const router = new Router({
     {
       path: '*',
       name: 'notfound',
-      component:NotFound
+      component: NotFound
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some(page => page.meta.isPublic) && Date.now()/1000 >   Store.state.auth.user.exp) {
-    Store.dispatch('alert/create', { message: "The session has expired. Please log in again.", type: 'error' })
+  if (!to.matched.some(page => page.meta.isPublic) && Date.now() / 1000 > Store.state.auth.user.exp) {
+    Store.dispatch('alert/create', { message: "The session has expired. Please login again.", type: 'error' })
     next('/')
   } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
-    next('/dashboard')
+    next('/')
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
     next()
   else

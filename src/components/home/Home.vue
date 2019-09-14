@@ -4,7 +4,7 @@
       <v-flex lg10 md11 xs12>
         <v-row>
           <v-col>
-            <div class="block elevation-4">
+            <div class="block elevation-1">
               <v-img
                 :src="require('@/assets/logo.svg')"
                 contain
