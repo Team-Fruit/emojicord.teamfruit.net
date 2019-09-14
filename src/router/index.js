@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
     next()
   else
-    next('/')
+    window.location = "https://emojicord.teamfruit.net/api/auth/login"
 })
 
 export default router

@@ -6,7 +6,7 @@
     <v-card-text>{{ this.desc }}</v-card-text>
     <v-card-actions>
       <div class="flex-grow-1"></div>
-      <v-btn color="#43b581">{{ this.title }}</v-btn>
+      <v-btn color="#43b581" :to="this.to">{{ this.title }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -16,13 +16,8 @@ export default {
     props: {
         title: String,
         icon: String,
-        desc: String
+        desc: String,
+        to: String
     }
 }
 </script>
-
-<style scoped>
-.actions {
-    
-}
-</style>

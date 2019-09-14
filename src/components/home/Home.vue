@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-xl>
-    <v-layout justify-center>
+  <v-container grid-list-xl fill-height>
+    <v-layout justify-center align-center>
       <v-flex lg10 md11 xs12>
         <v-row>
           <v-col>
@@ -33,7 +33,7 @@
         </v-row>
         <v-row>
           <v-flex sm4 xs12 v-for="tile in tiles" :key="tile.title">
-            <HomeTile :title="tile.title" :icon="tile.icon" :desc="tile.desc"></HomeTile>
+            <HomeTile :title="tile.title" :icon="tile.icon" :desc="tile.desc" :to="tile.to"></HomeTile>
           </v-flex>
         </v-row>
       </v-flex>
@@ -53,17 +53,20 @@ export default {
       {
         title: "Guilds",
         icon: "fas fa-users",
-        desc: "Invite a bot and get Emoji from the guild"
+        desc: "Invite a bot and get Emoji from the guild",
+        to: "/guilds"
       },
       {
         title: "Emojis",
         icon: "fas fa-grin-tongue-wink",
-        desc: "Choose what you want to use with Emojicord in the Emoji list"
+        desc: "Choose what you want to use with Emojicord in the Emoji list",
+        to: "/emojis"
       },
       {
         title: "Download",
         icon: "fas fa-download",
-        desc: "Generate download code and import Emoji into Minecraft"
+        desc: "Generate download code and import Emoji into Minecraft",
+        to: "/download"
       }
     ]
   })
@@ -73,7 +76,7 @@ export default {
 <style scoped>
 .block {
   display: flex;
-  margin-top: 120px;
+  margin-top: 80px;
   align-items: flex-end;
   background-color: #23272a;
   height: 220px;
