@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-xl fill-height>
-    <v-layout justify-center align-center>
+  <v-container grid-list-xl>
+    <v-layout justify-center>
       <v-flex lg10 md11 xs12>
         <v-row>
           <v-col>
@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .block {
   display: flex;
-  margin-top: 80px;
+  margin-top: 120px;
   align-items: flex-end;
   background-color: #23272a;
   height: 220px;
