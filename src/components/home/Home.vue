@@ -10,6 +10,7 @@
                 contain
                 max-height="320px"
                 max-width="320px"
+                aspect-ratio="1"
                 class="d-none d-sm-block"
               ></v-img>
               <v-row>

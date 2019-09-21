@@ -3,7 +3,7 @@
     <v-container class="pa-0">
       <v-toolbar dark flat color="#202225" height="60px" class="py-0 toolbar">
         <router-link to="/">
-          <v-img :src="require('@/assets/header.svg')" contain height="38px" max-width="200px"></v-img>
+          <v-img :src="require('@/assets/header.svg')" contain height="38px" width="200px"></v-img>
         </router-link>
         <div class="ml-4"></div>
         <v-toolbar-items class="hidden-sm-and-down">
