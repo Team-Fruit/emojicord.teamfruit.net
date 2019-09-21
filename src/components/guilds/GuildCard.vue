@@ -59,7 +59,7 @@ export default {
       return `https://cdn.discordapp.com/icons/${this.id}/${this.icon}?size=128`;
     },
     getInviteURL() {
-      return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=0&scope=bot&guild_id=${this.id}`;
+      return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&scope=bot&guild_id=${this.id}`;
       // return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&redirect_uri=https%3A%2F%2Femojicord.teamfruit.net%2Fuser%2Fguild&scope=bot&response_type=code&guild_id=${this.id}`;
     },
     copyInviteURL() {
