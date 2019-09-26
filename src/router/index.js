@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/Home'
 import Guild from '@/components/guilds/Guild'
+import Emoji from '@/components/emojis/Emoji'
 import NotFound from '@/components/NotFound'
 
 import Store from '@/store'
@@ -40,6 +41,11 @@ const router = new Router({
       path: '/guilds',
       name: 'guilds',
       component: Guild
+    },
+    {
+      path: '/emojis',
+      name: 'emojis',
+      component: Emoji
     },
     // {
     //   path: '/user',
