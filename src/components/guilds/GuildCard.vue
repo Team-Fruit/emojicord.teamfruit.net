@@ -26,7 +26,7 @@
                 target="_blank"
               >Invite Bot</v-btn>
               <v-btn v-else depressed color="error" :loading="copied" @click="copyInviteURL()">
-                Copy Invie Link
+                Copy Invite Link
                 <template v-if="copyError" v-slot:loader>Can Not Copy</template>
                 <template v-else v-slot:loader>Copied</template>
               </v-btn>
