@@ -3,7 +3,7 @@
   <v-container v-else>
     <v-card dark>
       <v-card-title>
-        Nutrition
+         Your Emoji
         <div class="flex-grow-1"></div>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
@@ -25,7 +25,7 @@
         </template>
         <template v-slot:item.id="{ item }">
           <v-img
-            :src="`https://cdn.discordapp.com/emojis/${item.id}.png`"
+            :src="`https://cdn.discordapp.com/emojis/${item.id}`"
             width="32"
             height="32"
             contain
@@ -94,7 +94,6 @@ export default {
     },
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
-      console.log(i);
       return (
         i.name.toLowerCase().includes(text) ||
         i.username.toLowerCase().includes(text)
