@@ -3,7 +3,7 @@
   <v-container v-else>
     <v-card dark>
       <v-card-title>
-         Your Emoji
+        Your Emoji
         <div class="flex-grow-1"></div>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
       </v-card-title>
@@ -20,6 +20,9 @@
         show-select
         dark
       >
+        <template v-slot:item.enabled="{ item }">
+          <v-switch v-model="item.enabled" color="success" class="mx-2" dark @change="onSwitch(item)"></v-switch>
+        </template>
         <template v-slot:item.guildid="{ item }">
           <GuildChip v-bind="getGuild(item.guildid)"></GuildChip>
         </template>
@@ -28,6 +31,7 @@
             :src="`https://cdn.discordapp.com/emojis/${item.id}`"
             width="32"
             height="32"
+            class="mx-2"
             contain
           ></v-img>
         </template>
@@ -37,11 +41,7 @@
           <span class="colon">:</span>
         </template>
         <template v-slot:item.userid="{ item }">
-          <UserChip v-bind="item"></UserChip>
-        </template>
-        <template v-slot:item.enabled="{ item }">
-          <v-btn v-if="item.enabled" color="success">Enable</v-btn>
-          <v-btn v-else>Disable</v-btn>
+          <UserChip v-bind="getUser(item.userid)  "></UserChip>
         </template>
       </v-data-table>
     </v-card>
@@ -64,6 +64,7 @@ export default {
       emojis: {},
       search: "",
       headers: [
+        { text: "Enabled", value: "enabled", width: 100, align: "center" },
         { text: "Guild", value: "guildid", filterable: false },
         {
           text: "Emoji",
@@ -74,8 +75,7 @@ export default {
           align: "center"
         },
         { text: "Alias", value: "name", width: 300 },
-        { text: "Uploaded By", value: "userid" },
-        { text: "Enabled", value: "enabled", width: 100, align: "center" }
+        { text: "Uploaded By", value: "userid" }
       ]
     };
   },
@@ -92,12 +92,18 @@ export default {
     getGuild(guildid) {
       return this.emojis.guilds.find(v => v.id == guildid);
     },
+    getUser(userid) {
+      return this.emojis.users.find(v => v.id == userid);
+    },
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
       return (
         i.name.toLowerCase().includes(text) ||
         i.username.toLowerCase().includes(text)
       );
+    },
+    onSwitch(v) {
+      // TODO
     }
   }
 };
