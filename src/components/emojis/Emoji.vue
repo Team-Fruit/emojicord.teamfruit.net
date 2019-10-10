@@ -3,11 +3,66 @@
   <v-container v-else>
     <v-card dark>
       <v-card-title>
-        Your Emoji
-        <div class="flex-grow-1"></div>
-        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+        <v-row no-gutters style="height: 50px;">
+          <v-col v-if="!selected.length" cols="12" sm="8" align-self="center">Your Emoji</v-col>
+          <v-col v-else>
+            <v-row>
+             {{ selected.length }} Items Selected
+              <v-switch color="success" dark @change="onSwitch(selected)"></v-switch>
+            </v-row>
+          </v-col>
+          <div class="flex-grow-1"></div>
+          <!-- <v-select
+          :items="emojis.guilds"
+          label="Select Guild"
+          item-text="name"
+          item-value="name"
+          single-line
+          hide-details
+          dark
+          class="ml-2"
+        >
+          <template slot="selection" slot-scope="data">
+            <v-img
+              v-if="data.item.icon"
+              :src="`https://cdn.discordapp.com/icons/${data.item.id}/${data.item.icon}`"
+              max-width="32"
+              height="32"
+              contain
+              class="mx-2"
+            ></v-img>
+            <v-img v-else max-width="32" class="mx-2"></v-img>
+            {{ data.item.name }}
+          </template>
+          <template slot="item" slot-scope="data">
+            <v-img
+              v-if="data.item.icon"
+              :src="`https://cdn.discordapp.com/icons/${data.item.id}/${data.item.icon}`"
+              max-width="32"
+              height="32"
+              contain
+              class="mx-2"
+            ></v-img>
+            <v-img v-else max-width="32" class="mx-2"></v-img>
+            {{ data.item.name }}
+          </template>
+          </v-select>-->
+          <v-col cols="12" sm="4">
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              dark
+              single-line
+              hide-details
+              clearable
+              class="ml-2"
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </v-card-title>
       <v-data-table
+        v-model="selected"
         :headers="headers"
         :items="emojis.emojis"
         item-key="id"
@@ -21,7 +76,13 @@
         dark
       >
         <template v-slot:item.enabled="{ item }">
-          <v-switch v-model="item.enabled" color="success" class="mx-2" dark @change="onSwitch(item)"></v-switch>
+          <v-switch
+            v-model="item.enabled"
+            color="success"
+            class="mx-2"
+            dark
+            @change="onSwitch(item)"
+          ></v-switch>
         </template>
         <template v-slot:item.guildid="{ item }">
           <GuildChip v-bind="getGuild(item.guildid)"></GuildChip>
@@ -63,8 +124,16 @@ export default {
       loading: true,
       emojis: {},
       search: "",
+      selected: [],
       headers: [
-        { text: "Enabled", value: "enabled", width: 100, align: "center" },
+        {
+          text: "Enabled",
+          value: "enabled",
+          width: 100,
+          align: "center",
+          sortable: false,
+          filterable: false
+        },
         { text: "Guild", value: "guildid", filterable: false },
         {
           text: "Emoji",
@@ -97,9 +166,10 @@ export default {
     },
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
+      const user = this.getUser(i.userid);
       return (
         i.name.toLowerCase().includes(text) ||
-        i.username.toLowerCase().includes(text)
+        (user.name + "#" + user.discriminator).toLowerCase().includes(text)
       );
     },
     onSwitch(v) {
@@ -112,5 +182,9 @@ export default {
 <style scoped>
 .colon {
   color: #99aab5;
+}
+
+.guild_menu {
+  background-color: gray;
 }
 </style>
