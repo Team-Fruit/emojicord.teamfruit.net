@@ -3,8 +3,12 @@ import axios from 'axios'
 export default {
     namespaced: true,
     actions: {
-        get({ dispatch, rootState }, endpoint) {
-            return axios.get('https://emojicord.teamfruit.net/api' + endpoint, {
+        http({ dispatch, rootState }, { method, endpoint, data }) {
+            return axios({
+                method: method,
+                baseURL: 'https://emojicord.teamfruit.net/api',
+                url: endpoint,
+                data: data,
                 headers: {
                     Authorization: `Bearer ${rootState.auth.token}`
                 }
@@ -17,6 +21,18 @@ export default {
                     root: true
                 })
             })
+        },
+        get({ dispatch }, endpoint) {
+            return dispatch('http', { method: 'get', endpoint })
+        },
+        post({ dispatch }, endpoint, data) {
+            return dispatch('http', { method: 'post', endpoint, data})
+        },
+        put({ dispatch }, endpoint, data) {
+            return dispatch('http', { method: 'put', endpoint, data})
+        },
+        delete({ dispatch }, endpoint) {
+            return dispatch('http', { method: 'delete', endpoint})
         }
     }
 }
