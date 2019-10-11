@@ -3,36 +3,51 @@ import axios from 'axios'
 export default {
     namespaced: true,
     actions: {
-        http({ dispatch, rootState }, { method, endpoint, data }) {
+        http({ dispatch, rootState }, { baseURL, method, endpoint, data }) {
             return axios({
                 method: method,
-                baseURL: 'https://emojicord.teamfruit.net/api',
+                baseURL: baseURL,
                 url: endpoint,
                 data: data,
                 headers: {
                     Authorization: `Bearer ${rootState.auth.token}`
                 }
             }).then(res => res)
-            .catch(err => {
-                dispatch('alert/create', {
-                    message: err,
-                    type: 'error'
-                }, {
-                    root: true
+                .catch(err => {
+                    dispatch('alert/create', {
+                        message: err,
+                        type: 'error'
+                    }, {
+                        root: true
+                    })
                 })
-            })
         },
         get({ dispatch }, endpoint) {
-            return dispatch('http', { method: 'get', endpoint })
+            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'get', endpoint })
         },
         post({ dispatch }, endpoint, data) {
-            return dispatch('http', { method: 'post', endpoint, data})
+            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'post', endpoint, data })
         },
         put({ dispatch }, endpoint, data) {
-            return dispatch('http', { method: 'put', endpoint, data})
+            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'put', endpoint, data })
         },
         delete({ dispatch }, endpoint) {
-            return dispatch('http', { method: 'delete', endpoint})
+            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint })
+        },
+        postLocalHost({ dispatch }, port, data) {
+            return axios({
+                method: 'post',
+                url: 'http://localhost:' + port,
+                data: data,
+            }).then(res => res)
+                .catch(err => {
+                    dispatch('alert/create', {
+                        message: err,
+                        type: 'error'
+                    }, {
+                        root: true
+                    })
+                })
         }
     }
 }

@@ -5,13 +5,16 @@
       <v-card-title>
         <v-row no-gutters style="height: 50px;">
           <v-col v-if="!selected.length" cols="12" sm="8" align-self="center">Your Emoji</v-col>
-          <v-col v-else>
-            <v-row>
-             {{ selected.length }} Items Selected
-              <v-switch color="success" dark @change="onSwitch(selected)"></v-switch>
-            </v-row>
-          </v-col>
-          <div class="flex-grow-1"></div>
+          <v-flex v-else>
+            <v-col class="align-content-end">
+              {{ selected.length }}
+              <template v-if="selected.length == 1">Item</template>
+              <template v-else>Items</template>
+              Selected:
+              <v-btn color="success" class="mx-1" v-if="selected.some(v=>!v.enabled)">Enable</v-btn>
+              <v-btn color="error" class="mx-1" v-if="selected.some(v=>v.enabled)">Disable</v-btn>
+            </v-col>
+          </v-flex>
           <!-- <v-select
           :items="emojis.guilds"
           label="Select Guild"
@@ -157,7 +160,7 @@ export default {
       .catch(err => err);
   },
   methods: {
-    ...mapActions("http", ["get"]),
+    ...mapActions("http", ["get", "put", "delete"]),
     getGuild(guildid) {
       return this.emojis.guilds.find(v => v.id == guildid);
     },
@@ -173,7 +176,13 @@ export default {
       );
     },
     onSwitch(v) {
-      // TODO
+      console.log(v)
+    },
+    enableAll(a) {
+
+},
+    disableAll(a) {
+
     }
   }
 };

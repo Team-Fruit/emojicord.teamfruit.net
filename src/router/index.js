@@ -4,6 +4,7 @@ import Home from '@/components/home/Home'
 import Guild from '@/components/guilds/Guild'
 import Emoji from '@/components/emojis/Emoji'
 import NotFound from '@/components/NotFound'
+import Test from '@/components/Test'
 
 import Store from '@/store'
 
@@ -62,6 +63,14 @@ const router = new Router({
     //     }
     //   ]
     // }
+    {
+      path: '/test',
+      name: 'test',
+      component: Test,
+      meta: {
+        isPublic: true
+      }
+    },
     {
       path: '*',
       name: 'notfound',
