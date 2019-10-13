@@ -16,6 +16,6 @@ export default new Vuex.Store({
   plugins: [createPersistedState({
     key: 'emojicord.teamfruit.net',
     // storage: window.sessionStorage,
-    paths: ['auth']
+    paths: ['auth', 'minecraft']
   })]
 })

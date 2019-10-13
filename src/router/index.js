@@ -39,6 +39,16 @@ const router = new Router({
       }
     },
     {
+      path: '/connect',
+      redirect: to => {
+        const { query } = to
+
+        if (query.key && query.port)
+          Store.dispatch('minecraft/connect', query)
+        return { path: '/', query: null }
+      }
+    },
+    {
       path: '/guilds',
       name: 'guilds',
       component: Guild
