@@ -74,7 +74,10 @@ const router = new Router({
     {
       path: '*',
       name: 'notfound',
-      component: NotFound
+      component: NotFound,
+      meta: {
+        notfound: true
+      }
     }
   ]
 })
@@ -86,6 +89,8 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
     next('/')
   else if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token)
+    next()
+  else if (to.matched.some(page => page.meta.notfound))
     next()
   else
     window.location = "https://emojicord.teamfruit.net/api/auth/login"
