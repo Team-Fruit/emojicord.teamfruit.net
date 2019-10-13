@@ -46,14 +46,9 @@
             </v-container>
           </v-card>
         </v-menu>
-        <v-btn
-          v-else
-          rounded
-          outlined
-          dark
-          href="https://emojicord.teamfruit.net/api/auth/login"
-        ><v-icon left 
-        small>fab fa-discord</v-icon>Login</v-btn>
+        <v-btn v-else rounded outlined dark href="https://emojicord.teamfruit.net/api/auth/login">
+          <v-icon left small>fab fa-discord</v-icon>Login
+        </v-btn>
       </v-toolbar>
     </v-container>
     <Alert></Alert>
@@ -68,11 +63,12 @@ export default {
   components: {
     Alert
   },
-  data: () => ({
-    menu: false
-  }),
+  data() {
+    return {
+      menu: false
+    };
+  },
   methods: {
-    top() {},
     logout() {
       this.menu = false;
       this.$store.dispatch("auth/logout");

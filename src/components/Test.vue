@@ -21,7 +21,7 @@ export default {
   methods: {
     ...mapActions("http", ["postLocalHost"]),
     post() {
-      this.postLocalHost(this.port, { key: "sushi", token: "hisushi" });
+      this.postLocalHost({ port: this.port, data: { key: "sushi", token: "hisushi" }});
     }
   }
 };
