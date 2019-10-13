@@ -34,12 +34,15 @@ export default {
         delete({ dispatch }, endpoint) {
             return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint })
         },
-        postLocalHost({ dispatch }, { port, data }) {
+        postLocalHost({ dispatch }, { port, key, data }) {
             return axios({
                 method: 'post',
                 url: 'http://localhost:' + port,
                 data: data,
-                headers: {'Content-Type': 'application/json'}
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${key}`
+                }
             }).then(res => res)
                 .catch(err => {
                     dispatch('alert/create', {
