@@ -11,7 +11,7 @@ export default {
         },
         destroy(state) {
             state.message = ''
-            state.type = ''
+            state.type = 'success'
         }
     },
     actions: {

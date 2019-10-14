@@ -1,9 +1,17 @@
 <template>
-  <v-alert :value="exits" :type="type" dark dismissible class="alert">{{ message }}</v-alert>
+  <v-alert
+    :value="exits"
+    :type="type"
+    dark
+    dismissible
+    class="alert"
+    @input="destroy()"
+    fixed
+  >{{ message }}</v-alert>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -14,6 +22,9 @@ export default {
     ...mapGetters("alert", {
       exits: "exits"
     })
+  },
+  methods: {
+    ...mapActions("alert", ["destroy"]),
   }
 };
 </script>
