@@ -11,8 +11,18 @@
               <template v-if="selected.length == 1">Item</template>
               <template v-else>Items</template>
               Selected:
-              <v-btn color="success" class="mx-1" v-if="selected.some(v=>!v.enabled)">Enable</v-btn>
-              <v-btn color="error" class="mx-1" v-if="selected.some(v=>v.enabled)">Disable</v-btn>
+              <v-btn
+                color="success"
+                class="mx-1"
+                v-if="selected.some(v=>!v.enabled)"
+                @click="enableAll()"
+              >Enable</v-btn>
+              <v-btn
+                color="error"
+                class="mx-1"
+                v-if="selected.some(v=>v.enabled)"
+                @click="disableAll()"
+              >Disable</v-btn>
             </v-col>
           </v-flex>
           <!-- <v-select
@@ -68,7 +78,6 @@
         v-model="selected"
         :headers="headers"
         :items="emojis.emojis"
-        item-key="id"
         :search="search"
         :custom-filter="customFilter"
         :footer-props="{
@@ -175,14 +184,40 @@ export default {
         (user.name + "#" + user.discriminator).toLowerCase().includes(text)
       );
     },
-    onSwitch(v) {
-      console.log(v)
+    toggleEmoji(id) {
+      const emoji = this.emojis.emojis.find(i => i.id == id);
+      this.$set(emoji, "enabled", !emoji.enabled);
     },
-    enableAll(a) {
-
-},
-    disableAll(a) {
-
+    toggleAllEmoji(ids) {
+      ids.forEach(e => this.toggleEmoji(e));
+    },
+    onSwitch(v) {
+      if (v.enabled)
+        this.put(`/user/emojis/${v.id}`).catch(err => {
+          this.toggleEmoji(v.id);
+          return err;
+        });
+      else
+        this.delete(`/user/emojis/${v.id}`).catch(err => {
+          this.toggleEmoji(v.id);
+          return err;
+        });
+    },
+    enableAll() {
+      const ids = this.selected.map(a => a.id);
+      this.toggleAllEmoji(ids);
+      this.put("/user/emojis", ids).catch(err => {
+        this.toggleAllEmoji(ids);
+        return err;
+      });
+    },
+    disableAll() {
+      const ids = this.selected.map(a => a.id);
+      this.toggleAllEmoji(ids);
+      this.delete("/user/emojis", ids).catch(err => {
+        this.toggleAllEmoji(ids);
+        return err;
+      });
     }
   }
 };

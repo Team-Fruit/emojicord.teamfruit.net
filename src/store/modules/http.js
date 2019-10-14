@@ -20,6 +20,7 @@ export default {
                     }, {
                         root: true
                     })
+                    return Promise.reject(err);
                 })
         },
         get({ dispatch }, endpoint) {
@@ -31,8 +32,8 @@ export default {
         put({ dispatch }, endpoint, data) {
             return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'put', endpoint, data })
         },
-        delete({ dispatch }, endpoint) {
-            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint })
+        delete({ dispatch }, endpoint, data) {
+            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint, data })
         },
         postLocalHost({ dispatch }, { port, key, data }) {
             return axios({
