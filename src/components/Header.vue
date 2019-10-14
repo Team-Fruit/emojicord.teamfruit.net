@@ -51,18 +51,14 @@
         </v-btn>
       </v-toolbar>
     </v-container>
-    <Alert></Alert>
   </div>
 </template>
 
 <script>
-import Alert from "@/components/Alert";
 import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    Alert
-  },
+
   data() {
     return {
       menu: false

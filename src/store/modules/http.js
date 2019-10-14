@@ -1,9 +1,10 @@
 import axios from 'axios'
+import Vue from 'vue'
 
 export default {
     namespaced: true,
     actions: {
-        http({ dispatch, rootState }, { baseURL, method, endpoint, data }) {
+        http({ rootState }, { baseURL, method, endpoint, data }) {
             return axios({
                 method: method,
                 baseURL: baseURL,
@@ -14,11 +15,10 @@ export default {
                 }
             }).then(res => res)
                 .catch(err => {
-                    dispatch('alert/create', {
-                        message: err,
-                        type: 'error'
-                    }, {
-                        root: true
+                    Vue.notify({
+                        group: 'alert',
+                        text: err,
+                        type: 'error',
                     })
                     return Promise.reject(err);
                 })
@@ -35,7 +35,7 @@ export default {
         delete({ dispatch }, endpoint, data) {
             return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint, data })
         },
-        postLocalHost({ dispatch }, { port, key, data }) {
+        postLocalHost(_, { port, key, data }) {
             return axios({
                 method: 'post',
                 url: 'http://localhost:' + port,
@@ -46,11 +46,10 @@ export default {
                 }
             }).then(res => res)
                 .catch(err => {
-                    dispatch('alert/create', {
-                        message: err,
-                        type: 'error'
-                    }, {
-                        root: true
+                    Vue.notify({
+                        group: 'alert',
+                        text: err,
+                        type: 'error',
                     })
                 })
         }

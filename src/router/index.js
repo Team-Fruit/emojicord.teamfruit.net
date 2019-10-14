@@ -94,7 +94,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.some(page => page.meta.isPublic) && Date.now() / 1000 > Store.state.auth.user.exp) {
-    Store.dispatch('alert/create', { message: "The session has expired. Please login again.", type: 'error' })
+    Vue.notify({
+      group: "alert",
+      text: "The session has expired. Please login again.",
+      type: 'error',
+    })
     next('/')
   } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
     next('/')
