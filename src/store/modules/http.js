@@ -3,6 +3,9 @@ import Vue from 'vue'
 
 export default {
     namespaced: true,
+    state: {
+
+    },
     actions: {
         http({ rootState }, { baseURL, method, endpoint, data }) {
             return axios({

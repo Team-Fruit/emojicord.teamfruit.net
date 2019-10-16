@@ -204,17 +204,17 @@ export default {
         });
     },
     enableAll() {
-      const ids = this.selected.map(a => a.id);
+      const ids = this.selected.filter(a => !a.enabled).map(a => a.id);
       this.toggleAllEmoji(ids);
-      this.put("/user/emojis", ids).catch(err => {
+      this.put(`/user/emojis/${ids.join(",")}`).catch(err => {
         this.toggleAllEmoji(ids);
         return err;
       });
     },
     disableAll() {
-      const ids = this.selected.map(a => a.id);
+      const ids = this.selected.filter(a => a.enabled).map(a => a.id);
       this.toggleAllEmoji(ids);
-      this.delete("/user/emojis", ids).catch(err => {
+      this.delete(`/user/emojis/${ids.join(",")}`).catch(err => {
         this.toggleAllEmoji(ids);
         return err;
       });
