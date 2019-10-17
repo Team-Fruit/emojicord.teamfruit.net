@@ -15,13 +15,13 @@
                 color="success"
                 class="mx-1"
                 v-if="selected.some(v=>!v.enabled)"
-                @click="enableAll()"
+                @click="switchAll(true)"
               >Enable</v-btn>
               <v-btn
                 color="error"
                 class="mx-1"
                 v-if="selected.some(v=>v.enabled)"
-                @click="disableAll()"
+                @click="switchAll(false)"
               >Disable</v-btn>
             </v-col>
           </v-flex>
@@ -191,34 +191,44 @@ export default {
     toggleAllEmoji(ids) {
       ids.forEach(e => this.toggleEmoji(e));
     },
+    enable(id) {
+      return this.put(`/user/emojis/${id}`);
+    },
+    disable(id) {
+      return this.delete(`/user/emojis/${id}`);
+    },
     onSwitch(v) {
       if (v.enabled)
-        this.put(`/user/emojis/${v.id}`).catch(err => {
+        this.enable(v.id).catch(err => {
           this.toggleEmoji(v.id);
           return err;
         });
       else
-        this.delete(`/user/emojis/${v.id}`).catch(err => {
+        this.disable(v.id).catch(err => {
           this.toggleEmoji(v.id);
           return err;
         });
     },
-    enableAll() {
-      const ids = this.selected.filter(a => !a.enabled).map(a => a.id);
+    switchAll(enable) {
+      const ids = this.selected
+        .filter(a => a.enabled == !enable)
+        .map(a => a.id);
+
       this.toggleAllEmoji(ids);
-      this.put(`/user/emojis/${ids.join(",")}`).catch(err => {
-        this.toggleAllEmoji(ids);
-        return err;
-      });
+
+      const join = ids.join(",");
+
+      if (enable)
+        this.enable(join).catch(err => {
+          this.toggleAllEmoji(ids);
+          return err;
+        });
+      else
+        this.disable(join).catch(err => {
+          this.toggleAllEmoji(ids);
+          return err;
+        });
     },
-    disableAll() {
-      const ids = this.selected.filter(a => a.enabled).map(a => a.id);
-      this.toggleAllEmoji(ids);
-      this.delete(`/user/emojis/${ids.join(",")}`).catch(err => {
-        this.toggleAllEmoji(ids);
-        return err;
-      });
-    }
   }
 };
 </script>
