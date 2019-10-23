@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/home/Home'
 import Guild from '@/components/guilds/Guild'
 import Emoji from '@/components/emojis/Emoji'
+import Minecraft from '@/components/minecraft/Minecraft'
+import Save from '@/components/minecraft/Save'
 import NotFound from '@/components/NotFound'
 import Test from '@/components/Test'
 
@@ -45,7 +47,7 @@ const router = new Router({
 
         if (query.key && query.port)
           Store.dispatch('minecraft/connect', query)
-        return { path: '/', query: null }
+        return { path: '/minecraft/guild', query: null }
       }
     },
     {
@@ -57,6 +59,31 @@ const router = new Router({
       path: '/emojis',
       name: 'emojis',
       component: Emoji
+    },
+    {
+      path: '/minecraft',
+      component: Minecraft,
+      children: [
+        {
+          path: 'guild',
+          name: 'guild',
+          component: Guild
+        },
+        {
+          path: 'emoji',
+          name: 'emoji',
+          component: Emoji
+        },
+        {
+          path: 'save',
+          name: 'save',
+          component: Save
+        },
+        {
+          path: '',
+          redirect: { path: '/minecraft/guild' }
+        }
+      ]
     },
     // {
     //   path: '/user',

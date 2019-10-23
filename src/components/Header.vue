@@ -1,12 +1,15 @@
 <template>
   <div class="root elevation-6">
     <v-container class="pa-0">
-      <v-toolbar dark flat color="#202225" height="60px" class="py-0 toolbar">
+      <v-toolbar dark flat color="#202225" class="py-0 toolbar">
         <router-link to="/">
           <v-img :src="require('@/assets/header.svg')" contain height="38px" width="200px"></v-img>
         </router-link>
         <div class="ml-4"></div>
-        <v-toolbar-items class="hidden-sm-and-down">
+        <template v-if="minecraft">
+          Minecraft Mode
+        </template>
+        <v-toolbar-items v-else class="hidden-sm-and-down">
           <v-btn text to="/guilds">Guilds</v-btn>
           <v-btn text to="/emojis">Emojis</v-btn>
           <v-btn text to="/download">Download</v-btn>
@@ -58,7 +61,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-
   data() {
     return {
       menu: false
@@ -72,16 +74,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("auth", {
-      avater: "getAvaterURL",
-      user: "getUser",
-      login: "isLoggedin"
+    ...mapGetters({
+      avater: "auth/getAvaterURL",
+      user: "auth/getUser",
+      login: "auth/isLoggedin",
+      minecraft: "minecraft/isConnected"
     })
   }
 };
 </script>
 
-<style>
+<style scoped>
 .root {
   background-color: #202225;
 }

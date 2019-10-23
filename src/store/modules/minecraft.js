@@ -2,7 +2,8 @@ export default {
     namespaced: true,
     state: {
         key: '',
-        port: -1
+        port: -1,
+        step: -1
     },
     mutations: {
         set(state, { key, port }) {
@@ -34,6 +35,9 @@ export default {
         },
         getPort: state => {
             return state.port
+        },
+        getStep: state => {
+            return state.step
         }
     }
 }
