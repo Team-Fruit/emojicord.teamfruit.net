@@ -30,11 +30,20 @@ export default {
         getUser: state => userid => {
             return state.emojis.users.find(v => v.id == userid);
         },
-        getEmojisForMC: (state, _, __, rootGetters) => {
+        getEmojisForMC: (state, getters, _, rootGetters) => {
             return {
                 id: rootGetters["auth/getUser"].id,
                 name: `${rootGetters["auth/getUser"].username}#${rootGetters["auth/getUser"].discriminator}`,
                 groups: state.emojis.guilds
+                    .map(guild => guild = {
+                        name: guild.name,
+                        id: guild.id,
+                        emojis: getters.getEmojis.emojis.filter(emoji => emoji.enabled && emoji.guildid === guild.id)
+                            .map(emoji => emoji = {
+                                id: emoji.id,
+                                name: emoji.name
+                            })
+                    })
             }
         }
     }
