@@ -18,7 +18,12 @@
                   <div class="content fill-height pa-4">
                     <h1 class="display-2 font-weight-bold">Emojicord</h1>
                     <p class="display-1">Discord Emojis in Minecraft</p>
-                    <v-btn class="mr-2 text-none" color="#de6a3b" dark disabled>CurseForge</v-btn>
+                    <v-btn
+                      class="mr-2 text-none"
+                      color="#de6a3b"
+                      dark
+                      href="https://www.curseforge.com/minecraft/mc-mods/emojicord"
+                    >CurseForge</v-btn>
                     <v-btn
                       class="mr-2 text-none"
                       color="white"
