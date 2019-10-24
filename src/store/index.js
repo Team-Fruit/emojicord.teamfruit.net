@@ -4,13 +4,14 @@ import createPersistedState from 'vuex-persistedstate'
 
 import auth from '@/store/modules/auth'
 import http from '@/store/modules/http'
+import emoji from '@/store/modules/emoji'
 import minecraft from '@/store/modules/minecraft'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth, http, minecraft
+    auth, http, minecraft, emoji
   },
   plugins: [createPersistedState({
     key: 'emojicord.teamfruit.net',

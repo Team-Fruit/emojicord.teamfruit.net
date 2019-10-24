@@ -77,7 +77,7 @@
       <v-data-table
         v-model="selected"
         :headers="headers"
-        :items="emojis.emojis"
+        :items="getEmojis.emojis"
         :search="search"
         :custom-filter="customFilter"
         :footer-props="{
@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import GuildChip from "@/components/emojis/GuildChip";
 import UserChip from "@/components/emojis/UserChip";
 
@@ -134,7 +134,7 @@ export default {
   data() {
     return {
       loading: true,
-      emojis: {},
+      // emojis: {},
       search: "",
       selected: [],
       headers: [
@@ -164,17 +164,21 @@ export default {
     this.get("/user/emojis")
       .then(res => {
         this.loading = false;
-        this.emojis = res.data;
+        this.setEmojis(res.data);
       })
       .catch(err => err);
   },
+  computed: {
+    ...mapGetters("emoji", ["getEmojis"])
+  },
   methods: {
     ...mapActions("http", ["get", "put", "delete"]),
+    ...mapMutations("emoji", ["setEmojis"]),
     getGuild(guildid) {
-      return this.emojis.guilds.find(v => v.id == guildid);
+      return this.getEmojis.guilds.find(v => v.id == guildid);
     },
     getUser(userid) {
-      return this.emojis.users.find(v => v.id == userid);
+      return this.getEmojis.users.find(v => v.id == userid);
     },
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
@@ -185,7 +189,7 @@ export default {
       );
     },
     toggleEmoji(id) {
-      const emoji = this.emojis.emojis.find(i => i.id == id);
+      const emoji = this.getEmojis.emojis.find(i => i.id == id);
       this.$set(emoji, "enabled", !emoji.enabled);
     },
     toggleAllEmoji(ids) {
@@ -228,7 +232,7 @@ export default {
           this.toggleAllEmoji(ids);
           return err;
         });
-    },
+    }
   }
 };
 </script>
