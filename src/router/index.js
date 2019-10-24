@@ -24,6 +24,7 @@ const router = new Router({
     },
     {
       path: '/login',
+      name: 'login',
       redirect: to => {
         const { query } = to
 
@@ -33,6 +34,8 @@ const router = new Router({
         if (query.error_description)
           Store.dispatch('alert/create', { message: query.error_description, type: 'error' })
 
+        if (Store.getters["minecraft/isConnected"])
+          return { path: '/minecraft/guild', query: null }
         return { path: '/', query: null }
       },
       meta: {
