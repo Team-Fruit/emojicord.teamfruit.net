@@ -1,5 +1,5 @@
 <template>
-  <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
+  <v-progress-linear v-if="!isFetched" :indeterminate="true"></v-progress-linear>
   <v-container v-else>
     <v-card dark>
       <v-card-title>
@@ -133,8 +133,6 @@ export default {
   },
   data() {
     return {
-      loading: true,
-      // emojis: {},
       search: "",
       selected: [],
       headers: [
@@ -161,18 +159,14 @@ export default {
     };
   },
   mounted() {
-    this.get("/user/emojis")
-      .then(res => {
-        this.loading = false;
-        this.setEmojis(res.data);
-      })
-      .catch(err => err);
+    this.fetch()
   },
   computed: {
-    ...mapGetters("emoji", ["getEmojis", "getGuild", "getUser"])
+    ...mapGetters("emoji", ["isFetched", "getEmojis", "getGuild", "getUser"])
   },
   methods: {
     ...mapActions("http", ["get", "put", "delete"]),
+    ...mapActions("emoji", ["fetch"]),
     ...mapMutations("emoji", ["setEmojis"]),
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
