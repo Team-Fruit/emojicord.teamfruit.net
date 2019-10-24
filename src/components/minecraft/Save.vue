@@ -1,7 +1,10 @@
 <template>
   <v-container fill-height>
     <v-layout row wrap justify-center align-center>
-      <v-icon v-if="!isConnected" dark>fas fa-check</v-icon>
+      <template v-if="!isConnected">
+        <v-icon dark>fas fa-check</v-icon>
+        Return to Minecraft
+      </template>
       <v-btn v-else-if="isFetched" color="success" @click="onPost()">Save</v-btn>
       <v-progress-circular v-else indeterminate color="primary"></v-progress-circular>
     </v-layout>
@@ -30,7 +33,7 @@ export default {
         key: this.getKey,
         data: this.getEmojisForMC
       }).then(res => {
-        if (res.status === 204) this.disconnect();
+        if (res.status === 200 || res.status === 204) this.disconnect();
       });
     }
   }
