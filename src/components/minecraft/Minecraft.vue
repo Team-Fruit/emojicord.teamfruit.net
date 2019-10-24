@@ -30,9 +30,7 @@
           </v-stepper-header>
         </v-stepper>
       </v-flex>
-      <!-- <v-flex xs12> -->
       <router-view></router-view>
-      <!-- </v-flex> -->
       <v-btn
         v-if="getStep()!=3"
         fab
