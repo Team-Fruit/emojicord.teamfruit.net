@@ -2,13 +2,11 @@
   <div class="root elevation-6">
     <v-container class="pa-0">
       <v-toolbar dark flat color="#202225" class="py-0 toolbar">
-        <router-link to="/">
+        <router-link :to="minecraft ? '/minecraft': '/'">
           <v-img :src="require('@/assets/header.svg')" contain height="38px" width="200px"></v-img>
         </router-link>
         <div class="ml-4"></div>
-        <template v-if="minecraft">
-          Minecraft Mode
-        </template>
+        <template v-if="minecraft">Minecraft Mode</template>
         <v-toolbar-items v-else class="hidden-sm-and-down">
           <v-btn text to="/guilds">Guilds</v-btn>
           <v-btn text to="/emojis">Emojis</v-btn>
