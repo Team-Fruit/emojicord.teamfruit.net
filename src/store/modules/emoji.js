@@ -11,6 +11,12 @@ export default {
     getters: {
         getEmojis: state => {
             return state.emojis
+        },
+        getGuild: state => guildid => {
+            return state.emojis.guilds.find(v => v.id == guildid);
+        },
+        getUser: state => userid => {
+            return state.emojis.users.find(v => v.id == userid);
         }
     }
 }

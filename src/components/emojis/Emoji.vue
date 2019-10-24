@@ -169,17 +169,11 @@ export default {
       .catch(err => err);
   },
   computed: {
-    ...mapGetters("emoji", ["getEmojis"])
+    ...mapGetters("emoji", ["getEmojis", "getGuild", "getUser"])
   },
   methods: {
     ...mapActions("http", ["get", "put", "delete"]),
     ...mapMutations("emoji", ["setEmojis"]),
-    getGuild(guildid) {
-      return this.getEmojis.guilds.find(v => v.id == guildid);
-    },
-    getUser(userid) {
-      return this.getEmojis.users.find(v => v.id == userid);
-    },
     customFilter(v, s, i) {
       const text = s.toLowerCase().trim();
       const user = this.getUser(i.userid);
