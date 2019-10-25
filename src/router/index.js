@@ -129,11 +129,12 @@ router.beforeEach((to, from, next) => {
   if (!to.matched.some(page => page.meta.minecraftMode))
     Store.dispatch("minecraft/disconnect")
   if (!to.matched.some(page => page.meta.isPublic) && Date.now() / 1000 > Store.state.auth.user.exp) {
-    Vue.notify({
-      group: "alert",
-      text: "The session has expired. Please login again.",
-      type: 'error',
-    })
+    window.location = "https://emojicord.teamfruit.net/api/auth/login"
+    // Vue.notify({
+    //   group: "alert",
+    //   text: "The session has expired. Please login again.",
+    //   type: 'error',
+    // })
     next('/')
   } else if (to.matched.some(page => page.meta.isPublicOnly) && Store.state.auth.token)
     next('/')
