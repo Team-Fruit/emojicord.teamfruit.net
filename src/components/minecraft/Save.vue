@@ -20,7 +20,6 @@ export default {
   },
   computed: {
     ...mapGetters("emoji", ["isFetched", "getEmojisForMC"]),
-    ...mapGetters("auth", ["getUser"]),
     ...mapGetters("minecraft", ["getPort", "getKey", "isConnected"])
   },
   methods: {
