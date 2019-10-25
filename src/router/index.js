@@ -86,7 +86,10 @@ const router = new Router({
           path: '',
           redirect: { path: '/minecraft/guild' }
         }
-      ]
+      ],
+      meta: {
+        minecraftMode: true
+      }
     },
     // {
     //   path: '/user',
@@ -123,6 +126,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (!to.matched.some(page => page.meta.minecraftMode))
+    Store.dispatch("minecraft/disconnect")
   if (!to.matched.some(page => page.meta.isPublic) && Date.now() / 1000 > Store.state.auth.user.exp) {
     Vue.notify({
       group: "alert",
