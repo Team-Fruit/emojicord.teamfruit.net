@@ -6,7 +6,7 @@ import Emoji from '@/components/emojis/Emoji'
 import Minecraft from '@/components/minecraft/Minecraft'
 import Save from '@/components/minecraft/Save'
 import NotFound from '@/components/NotFound'
-import Test from '@/components/Test'
+// import Test from '@/components/Test'
 
 import Store from '@/store'
 
@@ -92,28 +92,13 @@ const router = new Router({
       }
     },
     // {
-    //   path: '/user',
-    //   component: User,
-    //   children: [
-    //     {
-    //       path: 'guild',
-    //       name: 'guild',
-    //       component: Guild
-    //     },
-    //     {
-    //       path: '',
-    //       redirect: { name: 'guild' }
-    //     }
-    //   ]
-    // }
-    {
-      path: '/test',
-      name: 'test',
-      component: Test,
-      meta: {
-        isPublic: true
-      }
-    },
+    //   path: '/test',
+    //   name: 'test',
+    //   component: Test,
+    //   meta: {
+    //     isPublic: true
+    //   }
+    // },
     {
       path: '*',
       name: 'notfound',
