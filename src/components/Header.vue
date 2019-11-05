@@ -8,9 +8,25 @@
         <div class="ml-4"></div>
         <template v-if="minecraft">Minecraft Mode</template>
         <v-toolbar-items v-else class="hidden-sm-and-down">
-          <v-btn text to="/guilds">Guilds</v-btn>
-          <v-btn text to="/emojis">Emojis</v-btn>
-          <v-btn text to="/download">Download</v-btn>
+          <!-- <v-btn text to="/">Home</v-btn> -->
+          <v-btn text href="https://www.curseforge.com/minecraft/mc-mods/emojicord">Downloads</v-btn>
+          <v-menu open-on-hover offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn text v-on="on">Integration</v-btn>
+            </template>
+            <v-list dark>
+              <v-list-item to="/guilds">
+                <v-list-item-content>
+                  <v-list-item-title>Guilds</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item to="/emojis">
+                <v-list-item-content>
+                  <v-list-item-title>Emojis</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-menu
