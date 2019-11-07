@@ -2,6 +2,12 @@
   <v-progress-linear v-if="!isFetched" :indeterminate="true"></v-progress-linear>
   <v-container v-else>
     <v-card dark>
+      <v-container>
+        <h1 class="display-1 font-weight-bold mb-4">Emojis</h1>
+        <p
+          class="title font-weight-regular"
+        >To get emoji from Discord, Bot must belong. Invite Emojicord bot to use your Emoji!</p>
+      </v-container>
       <v-card-title>
         <v-row no-gutters style="height: 50px;">
           <v-col v-if="!selected.length" cols="12" sm="8" align-self="center">Your Emoji</v-col>
@@ -74,92 +80,27 @@
           </v-col>
         </v-row>
       </v-card-title>
-      <v-data-table
-        v-model="selected"
-        :headers="headers"
-        :items="getEmojis.emojis"
-        :search="search"
-        :custom-filter="customFilter"
-        :footer-props="{
-            'items-per-page-options': [50, 100, -1]
-        }"
-        :items-per-page="30"
-        show-select
-        dark
-      >
-        <template v-slot:item.enabled="{ item }">
-          <v-switch
-            v-model="item.enabled"
-            color="success"
-            class="mx-2"
-            dark
-            @change="onSwitch(item)"
-          ></v-switch>
-        </template>
-        <template v-slot:item.guildid="{ item }">
-          <GuildChip v-bind="getGuild(item.guildid)"></GuildChip>
-        </template>
-        <template v-slot:item.id="{ item }">
-          <v-img
-            :src="`https://cdn.discordapp.com/emojis/${item.id}`"
-            width="32"
-            height="32"
-            class="mx-2"
-            contain
-          ></v-img>
-        </template>
-        <template v-slot:item.name="{ item }">
-          <span class="colon">:</span>
-          {{item.name}}
-          <span class="colon">:</span>
-        </template>
-        <template v-slot:item.userid="{ item }">
-          <UserChip v-bind="getUser(item.userid)  "></UserChip>
-        </template>
-      </v-data-table>
+      <EmojiTable :search="search" @selected="selected = $event" @change-state="onSwitch($event)"></EmojiTable>
     </v-card>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import GuildChip from "@/components/emojis/GuildChip";
-import UserChip from "@/components/emojis/UserChip";
+import EmojiTable from "@/components/emojis/EmojiTable";
 
 export default {
   components: {
-    GuildChip,
-    UserChip
+    EmojiTable
   },
   data() {
     return {
       search: "",
-      selected: [],
-      headers: [
-        {
-          text: "Enabled",
-          value: "enabled",
-          width: 100,
-          align: "center",
-          sortable: false,
-          filterable: false
-        },
-        { text: "Guild", value: "guildid", filterable: false },
-        {
-          text: "Emoji",
-          value: "id",
-          sortable: false,
-          filterable: false,
-          width: 64,
-          align: "center"
-        },
-        { text: "Alias", value: "name", width: 300 },
-        { text: "Uploaded By", value: "userid" }
-      ]
+      selected: []
     };
   },
   mounted() {
-    this.fetch()
+    this.fetch();
   },
   computed: {
     ...mapGetters("emoji", ["isFetched", "getEmojis", "getGuild", "getUser"])
@@ -168,14 +109,6 @@ export default {
     ...mapActions("http", ["get", "put", "delete"]),
     ...mapActions("emoji", ["fetch"]),
     ...mapMutations("emoji", ["setEmojis"]),
-    customFilter(v, s, i) {
-      const text = s.toLowerCase().trim();
-      const user = this.getUser(i.userid);
-      return (
-        i.name.toLowerCase().includes(text) ||
-        (user.name + "#" + user.discriminator).toLowerCase().includes(text)
-      );
-    },
     toggleEmoji(id) {
       const emoji = this.getEmojis.emojis.find(i => i.id == id);
       this.$set(emoji, "enabled", !emoji.enabled);
