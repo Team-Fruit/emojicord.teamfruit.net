@@ -12,6 +12,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^2.6.5",
     "jwt-decode": "^2.2.0",
+    "prerender-spa-plugin": "^3.4.0",
     "vue": "^2.6.10",
     "vue-analytics": "^5.17.2",
     "vue-clipboard2": "^0.3.1",
