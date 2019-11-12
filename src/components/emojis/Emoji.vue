@@ -10,7 +10,7 @@
       </v-container>
       <v-card-title>
         <v-row no-gutters style="height: 50px;">
-          <v-col v-if="!selected.length" cols="12" sm="8" align-self="center">Your Emoji</v-col>
+          <v-col v-if="!selected.length" cols="12" sm="7" align-self="center">Your Emoji</v-col>
           <v-flex v-else>
             <v-col class="align-content-end">
               {{ selected.length }}
@@ -66,21 +66,45 @@
             {{ data.item.name }}
           </template>
           </v-select>-->
-          <v-col cols="12" sm="4">
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Search"
-              dark
-              single-line
-              hide-details
-              clearable
-              class="ml-2"
-            ></v-text-field>
+          <v-col cols="12" sm="5" align-self="center">
+            <v-row align="end">
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Search"
+                dark
+                single-line
+                hide-details
+                clearable
+                class="ml-2"
+              ></v-text-field>
+              <v-btn
+                :color="listmode ? 'rgb(66,66,66)': null"
+                :depressed="!listmode"
+                class="ml-2 text-none"
+                @click="listmode = false"
+              >
+                <v-icon dark left>fas fa-th</v-icon>Overview
+              </v-btn>
+              <v-btn
+                :color="listmode ? null:'rgb(66,66,66)'"
+                :depressed="listmode"
+                class="ml-2 text-none"
+                @click="listmode = true"
+              >
+                <v-icon dark left>fas fa-th-list</v-icon>List
+              </v-btn>
+            </v-row>
           </v-col>
         </v-row>
       </v-card-title>
-      <EmojiTable :search="search" @selected="selected = $event" @change-state="onSwitch($event)"></EmojiTable>
+      <EmojiTable
+        v-if="listmode"
+        :search="search"
+        @selected="selected = $event"
+        @change-state="onSwitch($event)"
+      ></EmojiTable>
+      <EmojiView v-else></EmojiView>
     </v-card>
   </v-container>
 </template>
@@ -88,13 +112,16 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import EmojiTable from "@/components/emojis/EmojiTable";
+import EmojiView from "@/components/emojis/EmojiView";
 
 export default {
   components: {
-    EmojiTable
+    EmojiTable,
+    EmojiView
   },
   data() {
     return {
+      listmode: true,
       search: "",
       selected: []
     };
