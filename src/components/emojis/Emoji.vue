@@ -104,7 +104,7 @@
         @selected="selected = $event"
         @change-state="onSwitch($event)"
       ></EmojiTable>
-      <EmojiView v-else></EmojiView>
+      <EmojiView v-else :search="search"></EmojiView>
     </v-card>
   </v-container>
 </template>
@@ -121,7 +121,7 @@ export default {
   },
   data() {
     return {
-      listmode: true,
+      listmode: false,
       search: "",
       selected: []
     };
