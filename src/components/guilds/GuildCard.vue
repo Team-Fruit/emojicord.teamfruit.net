@@ -17,7 +17,12 @@
           </v-row>
           <v-row justify="end">
             <v-col>
-              <v-btn v-if="botExists" depressed color="success">Ready</v-btn>
+              <v-btn
+                v-if="botExists"
+                depressed
+                color="success"
+                :to="{path: 'emojis', query: { guild: id}}"
+              >Ready</v-btn>
               <v-btn
                 v-else-if="canInvite"
                 depressed
