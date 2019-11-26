@@ -100,6 +100,15 @@ const router = new Router({
     //   }
     // },
     {
+      path: '/download',
+      meta: {
+        isPublic: true
+      },
+      beforeEnter: () => {
+        location.href = 'https://www.curseforge.com/minecraft/mc-mods/emojicord'
+      }
+    },
+    {
       path: '*',
       name: 'notfound',
       component: NotFound,
