@@ -84,7 +84,7 @@
                 class="ml-2 text-none"
                 @click="listmode = false"
               >
-                <v-icon dark left>fas fa-th</v-icon>Overview
+                <v-icon dark>fas fa-th</v-icon>
               </v-btn>
               <v-btn
                 :color="listmode ? null:'rgb(66,66,66)'"
@@ -92,7 +92,7 @@
                 class="ml-2 text-none"
                 @click="listmode = true"
               >
-                <v-icon dark left>fas fa-th-list</v-icon>List
+                <v-icon dark>fas fa-th-list</v-icon>
               </v-btn>
             </v-row>
           </v-col>
