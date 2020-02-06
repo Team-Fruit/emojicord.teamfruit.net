@@ -21,7 +21,7 @@
                 v-if="botExists"
                 depressed
                 color="success"
-                :to="{path: 'emojis', query: { guild: id}}"
+                :to="{path: 'emoji', query: { guild: id}}"
               >Ready</v-btn>
               <v-btn
                 v-else-if="canInvite"

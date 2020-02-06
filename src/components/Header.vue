@@ -15,12 +15,12 @@
               <v-btn text v-on="on">Integration</v-btn>
             </template>
             <v-list dark>
-              <v-list-item to="/guilds">
+              <v-list-item to="/guild">
                 <v-list-item-content>
                   <v-list-item-title>Guilds</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item to="/emojis">
+              <v-list-item to="/emoji">
                 <v-list-item-content>
                   <v-list-item-title>Emojis</v-list-item-title>
                 </v-list-item-content>

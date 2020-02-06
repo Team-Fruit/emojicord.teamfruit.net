@@ -54,12 +54,12 @@ const router = new Router({
       }
     },
     {
-      path: '/guilds',
+      path: '/guild',
       name: 'guilds',
       component: Guild
     },
     {
-      path: '/emojis',
+      path: '/emoji',
       name: 'emojis',
       component: Emoji
     },
