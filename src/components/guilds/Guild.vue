@@ -3,7 +3,7 @@
   <v-container v-else grid-list-md>
     <v-container class="mx-8 mt-6">
         <h1 class="display-1 font-weight-bold mb-4">Guilds</h1>
-        <p class="title font-weight-regular">To get emoji from Discord, Bot must belong. Invite Emojicord bot to use your Emoji!</p>
+        <p class="title font-weight-regular">Invite a bot to import emoji into Emojicord!</p>
     </v-container>
     <v-row align="center" justify="space-around" class="px-4">
       <p class="white--text ma-0">Shows</p>

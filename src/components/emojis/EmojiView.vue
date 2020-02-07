@@ -42,9 +42,6 @@ export default {
     this.$nextTick(function() {
       if (this.$route.query.guild) {
         this.$vuetify.goTo(`#guild-${this.$route.query.guild}`);
-        // const index = this.getEmojis.guilds.findIndex(guild => guild.id === this.$route.query.guild);
-        // if (index > -1)
-        //   this.$vuetify.goTo(`#app > div.v-application--wrap > div.container > div > div:nth-child(3) > div:nth-child(${index + 1})`);
       }
     });
   },
