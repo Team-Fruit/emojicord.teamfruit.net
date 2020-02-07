@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-for="guild in filteredGuilds" :key="guild.id">
+    <v-container v-for="guild in filteredGuilds" :key="guild.id" :id="`guild-${guild.id}`">
       <v-subheader dark>{{guild.name}}</v-subheader>
       <v-layout row wrap justify-center>
         <v-container fluid>
@@ -41,9 +41,10 @@ export default {
   mounted() {
     this.$nextTick(function() {
       if (this.$route.query.guild) {
-        const index = this.getEmojis.guilds.findIndex(guild => guild.id === this.$route.query.guild);
-        if (index > -1)
-          this.$vuetify.goTo(`#app > div.v-application--wrap > div.container > div > div:nth-child(3) > div:nth-child(${index + 1})`);
+        this.$vuetify.goTo(`#guild-${this.$route.query.guild}`);
+        // const index = this.getEmojis.guilds.findIndex(guild => guild.id === this.$route.query.guild);
+        // if (index > -1)
+        //   this.$vuetify.goTo(`#app > div.v-application--wrap > div.container > div > div:nth-child(3) > div:nth-child(${index + 1})`);
       }
     });
   },
