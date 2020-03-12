@@ -27,16 +27,16 @@ export default {
                 })
         },
         get({ dispatch }, endpoint) {
-            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'get', endpoint })
+            return dispatch('http', { baseURL: 'https://api.emojicord.teamfruit.net', method: 'get', endpoint })
         },
         post({ dispatch }, endpoint, data) {
-            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'post', endpoint, data })
+            return dispatch('http', { baseURL: 'https://api.emojicord.teamfruit.net', method: 'post', endpoint, data })
         },
         put({ dispatch }, endpoint, data) {
-            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'put', endpoint, data })
+            return dispatch('http', { baseURL: 'https://api.emojicord.teamfruit.net', method: 'put', endpoint, data })
         },
         delete({ dispatch }, endpoint, data) {
-            return dispatch('http', { baseURL: 'https://emojicord.teamfruit.net/api', method: 'delete', endpoint, data })
+            return dispatch('http', { baseURL: 'https://api.emojicord.teamfruit.net', method: 'delete', endpoint, data })
         },
         postLocalHost(_, { port, key, data }) {
             return axios({
