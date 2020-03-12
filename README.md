@@ -1,4 +1,5 @@
 # emojicord
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ef2ba846-2304-4d49-a83f-4a7c873d13be/deploy-status)](https://app.netlify.com/sites/emojicord/deploys)
 
 ## Project setup
 ```
