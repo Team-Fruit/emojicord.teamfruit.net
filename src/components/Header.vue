@@ -63,7 +63,7 @@
             </v-container>
           </v-card>
         </v-menu>
-        <v-btn v-else rounded outlined dark href="https://api.emojicord.teamfruit.net/auth/login">
+        <v-btn v-else rounded outlined dark href="https://api1.teamfruit.net/auth/login">
           <v-icon left small>fab fa-discord</v-icon>Login
         </v-btn>
       </v-toolbar>
