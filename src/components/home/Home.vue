@@ -60,13 +60,13 @@ export default {
         title: "Guilds",
         icon: "fas fa-users",
         desc: "Invite a bot and get Emoji from guild",
-        to: "/guilds"
+        to: "/guild"
       },
       {
         title: "Emojis",
         icon: "fas fa-grin-tongue-wink",
         desc: "Choose what you want to use with Emojicord in Emoji list",
-        to: "/emojis"
+        to: "/emoji"
       },
       {
         title: "Download",
