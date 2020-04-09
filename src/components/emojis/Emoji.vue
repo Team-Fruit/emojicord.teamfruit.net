@@ -1,16 +1,16 @@
 <template>
   <v-progress-linear v-if="!isFetched" :indeterminate="true"></v-progress-linear>
   <v-container v-else>
-    <v-card dark>
+    <v-card color="#2f3136">
       <v-container>
         <h1 class="display-1 font-weight-bold mb-4">Emojis</h1>
         <p
-          class="title font-weight-regular"
+          class="title font-weight-regular text"
         >To get emoji from Discord, Bot must belong. Invite Emojicord bot to use your Emoji!</p>
       </v-container>
       <v-card-title>
         <v-row no-gutters style="height: 50px;">
-          <v-col v-if="!selected.length" cols="12" sm="7" align-self="center">Your Emoji</v-col>
+          <v-col v-if="!selected.length" cols="12" sm="7" align-self="center" class="text">Your Emoji</v-col>
           <v-flex v-else>
             <v-col class="align-content-end">
               {{ selected.length }}
@@ -186,6 +186,10 @@ export default {
 </script>
 
 <style scoped>
+.text {
+  color: #dcddde;
+}
+
 .colon {
   color: #99aab5;
 }
