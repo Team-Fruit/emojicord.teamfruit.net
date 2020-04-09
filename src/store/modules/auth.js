@@ -33,13 +33,15 @@ export default {
             return state.token ? true : false
         },
         isExpired: state => {
-            return Date.now()/1000 > state.user.exp
+            return Date.now() / 1000 > state.user.exp
         },
         getUser: state => {
             return state.user
         },
         getAvaterURL: state => {
-            return 'https://cdn.discordapp.com/avatars/' + state.user.id + '/' + state.user.avater + '.png'
+            if (state.user.avater)
+                return 'https://cdn.discordapp.com/avatars/' + state.user.id + '/' + state.user.avater
+            return 'https://cdn.discordapp.com/embed/avatars/' + state.user.discriminator % 5 + '.png'
         }
     }
 }
