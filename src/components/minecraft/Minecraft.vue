@@ -18,7 +18,7 @@
               step="2"
               :complete="getStep()>=2"
               @click="to('emoji')"
-            >Choose Emoji</v-stepper-step>
+            >All Emoji List</v-stepper-step>
             <v-divider></v-divider>
             <v-stepper-step
               editable
