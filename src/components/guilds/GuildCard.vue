@@ -22,7 +22,7 @@
                 depressed
                 color="success"
                 :to="{path: 'emoji', query: { guild: id}}"
-              >Ready</v-btn>
+              >Show Emojis</v-btn>
               <v-btn
                 v-else-if="canInvite"
                 depressed

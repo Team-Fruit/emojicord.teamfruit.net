@@ -7,7 +7,7 @@
     </v-container>
     <v-row align="center" justify="space-around" class="px-4">
       <p class="white--text ma-0">Shows</p>
-      <v-checkbox v-model="ready" label="Ready" color="success" class="mx-2" dark></v-checkbox>
+      <v-checkbox v-model="ready" label="Ready to Use" color="success" class="mx-2" dark></v-checkbox>
       <v-checkbox v-model="invite" label="Bot Inviteable" color="warning" class="mx-2" dark></v-checkbox>
       <v-checkbox
         v-model="permission"
