@@ -40,7 +40,7 @@
           :close-on-content-click="false"
         >
           <template v-slot:activator="{ on }">
-            <v-img :src="avater" contain max-width="30px" v-on="on"></v-img>
+            <v-img :src="avater" contain max-width="36px" v-on="on" class="icon"></v-img>
           </template>
           <v-card color="#18191c" width="252px" height="52px" class="px-5 py-2">
             <v-container class="pa-0 ma-0">
@@ -101,6 +101,10 @@ export default {
 <style scoped>
 .root {
   background-color: #202225;
+}
+
+.icon {
+  border-radius: 50%;
 }
 
 .as {
