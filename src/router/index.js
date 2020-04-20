@@ -51,6 +51,9 @@ const router = new Router({
         if (query.key && query.port)
           Store.dispatch('minecraft/connect', query)
         return { path: '/minecraft/guild', query: null }
+      },
+      meta: {
+        isPublic: true
       }
     },
     {
