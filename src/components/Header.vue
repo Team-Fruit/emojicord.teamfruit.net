@@ -25,6 +25,11 @@
                   <v-list-item-title>Emojis</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+              <v-list-item to="/newemoji">
+                <v-list-item-content>
+                  <v-list-item-title>Beta</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
             </v-list>
           </v-menu>
         </v-toolbar-items>

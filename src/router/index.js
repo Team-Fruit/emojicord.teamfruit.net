@@ -6,6 +6,7 @@ import Emoji from '@/components/emojis/Emoji'
 import Minecraft from '@/components/minecraft/Minecraft'
 import Save from '@/components/minecraft/Save'
 import NotFound from '@/components/NotFound'
+import NewEmoji from '@/components/newemojis/NewEmoji'
 // import Test from '@/components/Test'
 
 import Store from '@/store'
@@ -93,6 +94,11 @@ const router = new Router({
       meta: {
         minecraftMode: true
       }
+    },
+    {
+      path: '/newemoji',
+      name: 'beta',
+      component: NewEmoji
     },
     // {
     //   path: '/test',
