@@ -3,7 +3,14 @@
     <template v-slot:activator>
       <v-list-item-title>{{ title }}</v-list-item-title>
     </template>
-    <v-list-item dark link v-for="guild in guilds" :key="guild.id">
+    <v-list-item
+      dark
+      :link="permission"
+      v-for="guild in guilds"
+      :key="guild.id"
+      :href="permission ?  getInviteURL(guild.id) : null"
+      target="_blank"
+    >
       <v-list-item-avatar>
         <v-img
           v-if="guild.icon"
@@ -22,7 +29,13 @@ export default {
   props: {
     guilds: Array,
     expand: Boolean,
+    permission: Boolean,
     title: String
+  },
+  methods: {
+    getInviteURL(id) {
+      return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&scope=bot&guild_id=${id}`;
+    }
   }
 };
 </script>

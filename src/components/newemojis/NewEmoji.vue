@@ -18,7 +18,7 @@
         <v-card class="pa-2" outlined tile color="#23272A">
           <v-list dark color="#23272A" :height="contentHeight" class="overflow-y-auto">
             <EmojiGuildItem :guilds="getGuilds" :expand="availableGroupExpand" title="Available"></EmojiGuildItem>
-            <EmojiGuildItem :guilds="getInviteableGuilds" expand="true" title="Bot Inviteable"></EmojiGuildItem>
+            <EmojiGuildItem :guilds="getInviteableGuilds" expand=true title="Bot Inviteable" permission=true></EmojiGuildItem>
             <EmojiGuildItem :guilds="getNotInviteableGuilds" title="No Permission"></EmojiGuildItem>
             <v-list-item v-if="!guilds" class="green" @click="fetchGuilds()">
               <v-list-item-avatar>
