@@ -17,54 +17,9 @@
       <v-col lg="2">
         <v-card class="pa-2" outlined tile color="#23272A">
           <v-list dark color="#23272A" :height="contentHeight" class="overflow-y-auto">
-            <v-list-group dark :value="availableGroupExpand">
-              <template v-slot:activator>
-                <v-list-item-title>Available</v-list-item-title>
-              </template>
-              <v-list-item dark link v-for="guild in getGuilds" :key="guild.id">
-                <v-list-item-avatar>
-                  <v-img
-                    v-if="guild.icon"
-                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
-                  ></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{guild.name}}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-group>
-            <v-list-group v-if="getInviteableGuilds" dark value="true">
-              <template v-slot:activator>
-                <v-list-item-title>Bot Inviteable</v-list-item-title>
-              </template>
-              <v-list-item dark link v-for="guild in getInviteableGuilds" :key="guild.id">
-                <v-list-item-avatar>
-                  <v-img
-                    v-if="guild.icon"
-                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
-                  ></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{guild.name}}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-group>
-            <v-list-group v-if="getNotInviteableGuilds" dark>
-              <template v-slot:activator>
-                <v-list-item-title>No Permission</v-list-item-title>
-              </template>
-              <v-list-item dark link v-for="guild in getNotInviteableGuilds" :key="guild.id">
-                <v-list-item-avatar>
-                  <v-img
-                    v-if="guild.icon"
-                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
-                  ></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{guild.name}}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-group>
+            <EmojiGuildItem :guilds="getGuilds" :expand="availableGroupExpand" title="Available"></EmojiGuildItem>
+            <EmojiGuildItem :guilds="getInviteableGuilds" expand="true" title="Bot Inviteable"></EmojiGuildItem>
+            <EmojiGuildItem :guilds="getNotInviteableGuilds" title="No Permission"></EmojiGuildItem>
             <v-list-item v-if="!guilds" class="green" @click="fetchGuilds()">
               <v-list-item-avatar>
                 <v-progress-circular v-if="load.guild" indeterminate color="white"></v-progress-circular>
@@ -90,8 +45,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem"
 
 export default {
+  components: {
+    EmojiGuildItem
+  },
   data() {
     return {
       contentHeight: 0,
