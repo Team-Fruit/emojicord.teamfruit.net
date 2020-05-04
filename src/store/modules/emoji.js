@@ -24,6 +24,9 @@ export default {
         getEmojis: state => {
             return state.emojis
         },
+        getEmojisByGuildID: state => guildid => {
+            return state.emojis.emojis.filter(emoji => emoji.guildid == guildid)
+        },
         getGuilds: state => {
             return state.emojis.guilds
         },

@@ -18,7 +18,12 @@
         <v-card class="pa-2" outlined tile color="#23272A">
           <v-list dark color="#23272A" :height="contentHeight" class="overflow-y-auto">
             <EmojiGuildItem :guilds="getGuilds" :expand="availableGroupExpand" title="Available"></EmojiGuildItem>
-            <EmojiGuildItem :guilds="getInviteableGuilds" expand=true title="Bot Inviteable" permission=true></EmojiGuildItem>
+            <EmojiGuildItem
+              :guilds="getInviteableGuilds"
+              :expand="true"
+              title="Bot Inviteable"
+              :permission="true"
+            ></EmojiGuildItem>
             <EmojiGuildItem :guilds="getNotInviteableGuilds" title="No Permission"></EmojiGuildItem>
             <v-list-item v-if="!guilds" class="green" @click="fetchGuilds()">
               <v-list-item-avatar>
@@ -34,7 +39,31 @@
         </v-card>
       </v-col>
       <v-col lg="8">
-        <v-card class="pa-2" outlined tile color="#2C2F33" height="100%">Main</v-card>
+        <v-card dark tile color="#2C2F33" :height="contentHeight" class="overflow-y-auto">
+          <v-card dark tile color="#2C2F33" v-for="guild in getGuilds" :key="guild.id">
+            <v-banner dark tile sticky color="#2C2F33">
+              <v-avatar>
+                <v-img
+                  v-if="guild.icon"
+                  :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
+                ></v-img>
+              </v-avatar>
+              {{ guild.name }}
+            </v-banner>
+            <v-container>
+              <v-row class="px-3" justify="start">
+                <v-avatar
+                  v-for="emoji in getEmojisByGuildID(guild.id)"
+                  :key="emoji.id"
+                  class="ma-1"
+                  tile
+                >
+                  <v-img :src="`https://cdn.discordapp.com/emojis/${emoji.id}`"></v-img>
+                </v-avatar>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-card>
       </v-col>
       <v-col lg="2">
         <v-card class="pa-2" outlined tile color="#2f3136" height="100%">Search</v-card>
@@ -45,7 +74,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem"
+import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
 
 export default {
   components: {
@@ -67,14 +96,19 @@ export default {
     this.fetch();
   },
   computed: {
-    ...mapGetters("emoji", ["isFetched", "getEmojis", "getGuilds", "getUser"]),
+    ...mapGetters("emoji", [
+      "isFetched",
+      "getGuilds",
+      "getEmojisByGuildID",
+      "getUser"
+    ]),
     getInviteableGuilds() {
-      if (!this.guilds) return null
-      return this.guilds.filter(guild => guild.caninvite && !guild.botexists)
+      if (!this.guilds) return null;
+      return this.guilds.filter(guild => guild.caninvite && !guild.botexists);
     },
     getNotInviteableGuilds() {
-            if (!this.guilds) return null
-      return this.guilds.filter(guild => !guild.caninvite && !guild.botexists)
+      if (!this.guilds) return null;
+      return this.guilds.filter(guild => !guild.caninvite && !guild.botexists);
     }
   },
   methods: {
