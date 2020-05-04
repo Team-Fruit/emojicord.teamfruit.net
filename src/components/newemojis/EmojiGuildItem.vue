@@ -10,6 +10,7 @@
       :key="guild.id"
       :href="permission ?  getInviteURL(guild.id) : null"
       target="_blank"
+      @click="onClick(guild.id)"
     >
       <v-list-item-avatar>
         <v-img
@@ -28,6 +29,7 @@
 export default {
   props: {
     guilds: Array,
+    ready: Boolean,
     expand: Boolean,
     permission: Boolean,
     title: String
@@ -35,6 +37,9 @@ export default {
   methods: {
     getInviteURL(id) {
       return `https://discordapp.com/oauth2/authorize?client_id=588765615695855658&permissions=1073741824&scope=bot&guild_id=${id}`;
+    },
+    onClick(id) {
+      if (this.ready) this.$emit("select", id);
     }
   }
 };

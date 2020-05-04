@@ -17,7 +17,13 @@
       <v-col lg="2">
         <v-card class="pa-2" outlined tile color="#23272A">
           <v-list dark color="#23272A" :height="contentHeight" class="overflow-y-auto">
-            <EmojiGuildItem :guilds="getGuilds" :expand="availableGroupExpand" title="Available"></EmojiGuildItem>
+            <EmojiGuildItem
+              :guilds="getGuilds"
+              :expand="availableGroupExpand"
+              title="Available"
+              :ready="true"
+              @select="jumpGuild"
+            ></EmojiGuildItem>
             <EmojiGuildItem
               :guilds="getInviteableGuilds"
               :expand="true"
@@ -39,8 +45,15 @@
         </v-card>
       </v-col>
       <v-col lg="8">
-        <v-card dark tile color="#2C2F33" :height="contentHeight" class="overflow-y-auto">
-          <v-card dark tile color="#2C2F33" v-for="guild in getGuilds" :key="guild.id">
+        <v-card dark tile color="#2C2F33" :height="contentHeight" class="overflow-y-auto" id="emoji-box">
+          <v-card
+            dark
+            tile
+            color="#2C2F33"
+            v-for="guild in getGuilds"
+            :key="guild.id"
+            :id="`guild-${guild.id}`"
+          >
             <v-banner dark tile sticky color="#2C2F33">
               <v-avatar>
                 <v-img
@@ -126,6 +139,9 @@ export default {
           this.availableGroupExpand = false;
         })
         .catch(err => err);
+    },
+    jumpGuild(id) {
+      this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box"});
     }
   }
 };
