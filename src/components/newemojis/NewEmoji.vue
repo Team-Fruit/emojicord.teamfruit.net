@@ -31,7 +31,7 @@
               :permission="true"
             ></EmojiGuildItem>
             <EmojiGuildItem :guilds="getNotInviteableGuilds" title="No Permission"></EmojiGuildItem>
-            <v-list-item v-if="!guilds" class="green" @click="fetchGuilds()">
+            <v-list-item v-if="!guilds&&isFetched" class="green" @click="fetchGuilds()">
               <v-list-item-avatar>
                 <v-progress-circular v-if="load.guild" indeterminate color="white"></v-progress-circular>
                 <v-icon v-else>fas fa-plus</v-icon>
@@ -45,41 +45,75 @@
         </v-card>
       </v-col>
       <v-col lg="8">
-        <v-card dark tile color="#2C2F33" :height="contentHeight" class="overflow-y-auto" id="emoji-box">
-          <v-card
-            dark
-            tile
-            color="#2C2F33"
-            v-for="guild in getGuilds"
-            :key="guild.id"
-            :id="`guild-${guild.id}`"
-          >
-            <v-banner dark tile sticky color="#2C2F33">
-              <v-avatar>
-                <v-img
-                  v-if="guild.icon"
-                  :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
-                ></v-img>
-              </v-avatar>
-              {{ guild.name }}
-            </v-banner>
-            <v-container>
-              <v-row class="px-3" justify="start">
-                <v-avatar
-                  v-for="emoji in getEmojisByGuildID(guild.id)"
-                  :key="emoji.id"
-                  class="ma-1"
-                  tile
-                >
-                  <v-img :src="`https://cdn.discordapp.com/emojis/${emoji.id}`"></v-img>
+        <v-card
+          dark
+          tile
+          color="#2C2F33"
+          :height="contentHeight"
+          class="overflow-y-auto"
+          id="emoji-box"
+        >
+          <template v-if="!search">
+            <v-card
+              dark
+              tile
+              color="#2C2F33"
+              v-for="guild in getGuilds"
+              :key="guild.id"
+              :id="`guild-${guild.id}`"
+            >
+              <v-banner dark tile sticky color="#2C2F33">
+                <v-avatar>
+                  <v-img
+                    v-if="guild.icon"
+                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
+                  ></v-img>
                 </v-avatar>
-              </v-row>
-            </v-container>
-          </v-card>
+                {{ guild.name }}
+              </v-banner>
+              <v-container>
+                <v-row class="px-3" justify="start">
+                  <v-avatar
+                    v-for="emoji in getEmojisByGuildID(guild.id)"
+                    :key="emoji.id"
+                    class="ma-1"
+                    tile
+                  >
+                    <v-img :src="`https://cdn.discordapp.com/emojis/${emoji.id}?size=64`"></v-img>
+                  </v-avatar>
+                </v-row>
+              </v-container>
+            </v-card>
+          </template>
+          <v-card v-else dark tile color="#2C2F33"></v-card>
         </v-card>
       </v-col>
       <v-col lg="2">
-        <v-card class="pa-2" outlined tile color="#2f3136" height="100%">Search</v-card>
+        <v-card
+          dark
+          class="pa-2 d-flex flex-column"
+          outlined
+          tile
+          color="#2f3136"
+          :height="contentHeight"
+        >
+          <v-card dark outlined tile color="#2f3136">
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Search"
+              dark
+              single-line
+              hide-details
+              clearable
+              class="ml-2"
+            ></v-text-field>
+          </v-card>
+          <v-card v-if="isFetched" dark class="mt-auto" outlined tile color="#2f3136">
+            <span v-if="!isConnected" class>Open from Minecraft to Save</span>
+            <v-btn block color="warning" :disabled="!isConnected">Save</v-btn>
+          </v-card>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -97,11 +131,11 @@ export default {
     return {
       contentHeight: 0,
       load: {
-        emoji: true,
         guild: false
       },
       availableGroupExpand: true,
-      guilds: null
+      guilds: null,
+      search: ""
     };
   },
   mounted() {
@@ -109,12 +143,13 @@ export default {
     this.fetch();
   },
   computed: {
-    ...mapGetters("emoji", [
-      "isFetched",
-      "getGuilds",
-      "getEmojisByGuildID",
-      "getUser"
-    ]),
+    ...mapGetters({
+      isFetched :"emoji/isFetched",
+      getGuilds: "emoji/getGuilds",
+      getEmojisByGuildID: "emoji/getEmojisByGuildID",
+      getUser: "emoji/getUser",
+      isConnected: "minecraft/isConnected"
+    }),
     getInviteableGuilds() {
       if (!this.guilds) return null;
       return this.guilds.filter(guild => guild.caninvite && !guild.botexists);
@@ -141,7 +176,12 @@ export default {
         .catch(err => err);
     },
     jumpGuild(id) {
-      this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box"});
+      if (this.search) {
+        this.search = "";
+        this.$nextTick(() => {
+          this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box" });
+        });
+      } else this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box" });
     }
   }
 };
