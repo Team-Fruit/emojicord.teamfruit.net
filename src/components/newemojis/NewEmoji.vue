@@ -15,8 +15,8 @@
     </v-row>
     <v-row no-gutters justify="end">
       <v-col lg="2">
-        <v-card class="pa-2" outlined tile color="#23272A">
-          <v-list dark color="#23272A" :height="contentHeight" class="overflow-y-auto">
+        <v-card class="pa-2" outlined tile flat :height="contentHeight" color="#23272A">
+          <v-list dark color="#23272A" class="overflow-y-auto">
             <EmojiGuildItem
               :guilds="getGuilds"
               :expand="availableGroupExpand"
@@ -48,6 +48,7 @@
         <v-card
           dark
           tile
+          flat
           color="#2C2F33"
           :height="contentHeight"
           class="overflow-y-auto"
@@ -71,21 +72,12 @@
                 </v-avatar>
                 {{ guild.name }}
               </v-banner>
-              <v-container>
-                <v-row class="px-3" justify="start">
-                  <v-avatar
-                    v-for="emoji in getEmojisByGuildID(guild.id)"
-                    :key="emoji.id"
-                    class="ma-1"
-                    tile
-                  >
-                    <v-img :src="`https://cdn.discordapp.com/emojis/${emoji.id}?size=64`"></v-img>
-                  </v-avatar>
-                </v-row>
-              </v-container>
+              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)"></EmojiContainer>
             </v-card>
           </template>
-          <v-card v-else dark tile color="#2C2F33"></v-card>
+          <v-card v-else dark tile elevation="0" color="#2C2F33">
+            <EmojiContainer :emojis="getFilteredEmojis"></EmojiContainer>
+          </v-card>
         </v-card>
       </v-col>
       <v-col lg="2">
@@ -94,6 +86,7 @@
           class="pa-2 d-flex flex-column"
           outlined
           tile
+          flat
           color="#2f3136"
           :height="contentHeight"
         >
@@ -122,10 +115,12 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
+import EmojiContainer from "@/components/newemojis/EmojiContainer";
 
 export default {
   components: {
-    EmojiGuildItem
+    EmojiGuildItem,
+    EmojiContainer
   },
   data() {
     return {
@@ -144,12 +139,18 @@ export default {
   },
   computed: {
     ...mapGetters({
-      isFetched :"emoji/isFetched",
+      isFetched: "emoji/isFetched",
       getGuilds: "emoji/getGuilds",
+      getEmojis: "emoji/getEmojis",
       getEmojisByGuildID: "emoji/getEmojisByGuildID",
       getUser: "emoji/getUser",
       isConnected: "minecraft/isConnected"
     }),
+    getFilteredEmojis() {
+      return this.getEmojis.emojis.filter(emoji =>
+        emoji.name.toLowerCase().includes(this.search)
+      );
+    },
     getInviteableGuilds() {
       if (!this.guilds) return null;
       return this.guilds.filter(guild => guild.caninvite && !guild.botexists);
