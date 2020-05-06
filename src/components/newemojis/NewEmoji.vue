@@ -72,7 +72,7 @@
                 </v-avatar>
                 {{ guild.name }}
               </v-banner>
-              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)"></EmojiContainer>
+              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)" ></EmojiContainer>
             </v-card>
           </template>
           <v-card v-else dark tile elevation="0" color="#2C2F33">
