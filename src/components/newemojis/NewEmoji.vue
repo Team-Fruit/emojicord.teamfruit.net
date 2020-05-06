@@ -72,7 +72,7 @@
                 </v-avatar>
                 {{ guild.name }}
               </v-banner>
-              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)" ></EmojiContainer>
+              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)"></EmojiContainer>
             </v-card>
           </template>
           <v-card v-else dark tile elevation="0" color="#2C2F33">
@@ -90,22 +90,21 @@
           color="#2f3136"
           :height="contentHeight"
         >
-          <v-card dark outlined tile color="#2f3136">
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Search"
-              dark
-              single-line
-              hide-details
-              clearable
-              class="ml-2"
-            ></v-text-field>
-          </v-card>
-          <v-card v-if="isFetched" dark class="mt-auto" outlined tile color="#2f3136">
-            <span v-if="!isConnected" class>Open from Minecraft to Save</span>
-            <v-btn block color="warning" :disabled="!isConnected">Save</v-btn>
-          </v-card>
+          <template v-if="isFetched">
+            <v-card dark outlined tile color="#2f3136">
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Search"
+                dark
+                single-line
+                hide-details
+                clearable
+                class="ml-2"
+              ></v-text-field>
+            </v-card>
+            <EmojiSave></EmojiSave>
+          </template>
         </v-card>
       </v-col>
     </v-row>
@@ -116,11 +115,13 @@
 import { mapActions, mapGetters } from "vuex";
 import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
 import EmojiContainer from "@/components/newemojis/EmojiContainer";
+import EmojiSave from "@/components/newemojis/EmojiSave";
 
 export default {
   components: {
     EmojiGuildItem,
-    EmojiContainer
+    EmojiContainer,
+    EmojiSave
   },
   data() {
     return {
@@ -138,14 +139,13 @@ export default {
     this.fetch();
   },
   computed: {
-    ...mapGetters({
-      isFetched: "emoji/isFetched",
-      getGuilds: "emoji/getGuilds",
-      getEmojis: "emoji/getEmojis",
-      getEmojisByGuildID: "emoji/getEmojisByGuildID",
-      getUser: "emoji/getUser",
-      isConnected: "minecraft/isConnected"
-    }),
+    ...mapGetters("emoji", [
+      "isFetched",
+      "getGuilds",
+      "getEmojis",
+      "getEmojisByGuildID",
+      "getUser"
+    ]),
     getFilteredEmojis() {
       return this.getEmojis.emojis.filter(emoji =>
         emoji.name.toLowerCase().includes(this.search)
