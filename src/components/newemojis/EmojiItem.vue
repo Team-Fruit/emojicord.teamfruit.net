@@ -9,7 +9,7 @@
   >
     <v-img
       contain
-      :src="`https://cdn.discordapp.com/emojis/${emoji}?size=64`"
+      :src="`https://cdn.discordapp.com/emojis/${emoji.id}?size=64`"
       height="64px"
       width="64px"
     ></v-img>
@@ -19,7 +19,7 @@
 <script>
 export default {
   props: {
-    emoji: String
+    emoji: Object
   },
   methods: {
     onEnter() {

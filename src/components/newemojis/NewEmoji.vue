@@ -5,7 +5,7 @@
         <h1 class="display-1 font-weight-bold mb-4">Discord Integration</h1>
       </v-col>
       <v-spacer></v-spacer>
-      <v-banner class="title font-weight-regular text" color="#2f3136">
+      <v-banner class="title font-weight-regular white--text" color="#2f3136">
         Legacy UI
         <template v-slot:actions>
           <v-btn depressed color="success" to="/guild">Guilds</v-btn>
@@ -78,7 +78,7 @@
                   <EmojiItem
                     v-for="emoji in getEmojisByGuildID(guild.id)"
                     :key="emoji.id"
-                    :emoji="emoji.id"
+                    :emoji="emoji"
                     @onHover="onEmojiHover"
                   ></EmojiItem>
                 </v-row>
@@ -91,21 +91,14 @@
                 <EmojiItem
                   v-for="emoji in getFilteredEmojis"
                   :key="emoji.id"
-                  :emoji="emoji.id"
+                  :emoji="emoji"
                   @onHover="onEmojiHover"
                 ></EmojiItem>
               </v-row>
             </v-container>
           </v-card>
         </v-card>
-        <v-card darl tile flat color="rgb(41, 43, 47)" height="70">
-          <v-img
-            contain
-            :src="hoverEmojiID !=null ? `https://cdn.discordapp.com/emojis/${hoverEmojiID}?size=64` : ''"
-            height="64px"
-            width="64px"
-          ></v-img>
-        </v-card>
+        <EmojiBottomBar :emoji="hoverEmoji" :guild="hoverEmoji ? getGuild(hoverEmoji.guildid) : null" :user="hoverEmoji ? getUser(hoverEmoji.userid) : null"></EmojiBottomBar>
       </v-col>
       <v-col lg="2">
         <v-card
@@ -142,13 +135,14 @@
 import { mapActions, mapGetters } from "vuex";
 import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
 import EmojiItem from "@/components/newemojis/EmojiItem";
-
+import EmojiBottomBar from "@/components/newemojis/EmojiBottomBar";
 import EmojiSave from "@/components/newemojis/EmojiSave";
 
 export default {
   components: {
     EmojiGuildItem,
     EmojiItem,
+    EmojiBottomBar,
     EmojiSave
   },
   data() {
@@ -160,7 +154,7 @@ export default {
       availableGroupExpand: true,
       guilds: null,
       search: "",
-      hoverEmojiID: null
+      hoverEmoji: null
     };
   },
   mounted() {
@@ -171,6 +165,8 @@ export default {
     ...mapGetters("emoji", [
       "isFetched",
       "getGuilds",
+      "getGuild",
+      "getUser",
       "getEmojis",
       "getEmojisByGuildID",
       "getUser"
@@ -213,15 +209,9 @@ export default {
         });
       } else this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box" });
     },
-    onEmojiHover(id) {
-      this.hoverEmojiID = id;
+    onEmojiHover(emoji) {
+      this.hoverEmoji = emoji;
     }
   }
 };
 </script>
-
-<style scoped>
-.text {
-  color: #dcddde;
-}
-</style>
