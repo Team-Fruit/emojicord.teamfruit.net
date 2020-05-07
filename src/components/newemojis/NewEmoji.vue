@@ -50,7 +50,7 @@
           tile
           flat
           color="#2C2F33"
-          :height="contentHeight"
+          :height="contentHeight - 70"
           class="overflow-y-auto"
           id="emoji-box"
         >
@@ -58,6 +58,7 @@
             <v-card
               dark
               tile
+              flat
               color="#2C2F33"
               v-for="guild in getGuilds"
               :key="guild.id"
@@ -72,12 +73,20 @@
                 </v-avatar>
                 {{ guild.name }}
               </v-banner>
-              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)"></EmojiContainer>
+              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)" @onHover="onEmojiHover"></EmojiContainer>
             </v-card>
           </template>
           <v-card v-else dark tile elevation="0" color="#2C2F33">
             <EmojiContainer :emojis="getFilteredEmojis"></EmojiContainer>
           </v-card>
+        </v-card>
+        <v-card darl tile flat color="rgb(41, 43, 47)" height="70">
+          <v-img
+            contain
+            :src="hoverEmojiID !=null ? `https://cdn.discordapp.com/emojis/${hoverEmojiID}?size=64` : ''"
+            height="64px"
+            width="64px"
+          ></v-img>
         </v-card>
       </v-col>
       <v-col lg="2">
@@ -131,7 +140,8 @@ export default {
       },
       availableGroupExpand: true,
       guilds: null,
-      search: ""
+      search: "",
+      hoverEmojiID: null
     };
   },
   mounted() {
@@ -183,6 +193,9 @@ export default {
           this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box" });
         });
       } else this.$vuetify.goTo(`#guild-${id}`, { container: "#emoji-box" });
+    },
+    onEmojiHover(id) {
+      this.hoverEmojiID = id;
     }
   }
 };
