@@ -73,11 +73,29 @@
                 </v-avatar>
                 {{ guild.name }}
               </v-banner>
-              <EmojiContainer :emojis="getEmojisByGuildID(guild.id)" @onHover="onEmojiHover"></EmojiContainer>
+              <v-container>
+                <v-row class="px-1 mx-auto" justify="start">
+                  <EmojiItem
+                    v-for="emoji in getEmojisByGuildID(guild.id)"
+                    :key="emoji.id"
+                    :emoji="emoji.id"
+                    @onHover="onEmojiHover"
+                  ></EmojiItem>
+                </v-row>
+              </v-container>
             </v-card>
           </template>
           <v-card v-else dark tile elevation="0" color="#2C2F33">
-            <EmojiContainer :emojis="getFilteredEmojis"></EmojiContainer>
+            <v-container>
+              <v-row class="px-1 mx-auto" justify="start">
+                <EmojiItem
+                  v-for="emoji in getFilteredEmojis"
+                  :key="emoji.id"
+                  :emoji="emoji.id"
+                  @onHover="onEmojiHover"
+                ></EmojiItem>
+              </v-row>
+            </v-container>
           </v-card>
         </v-card>
         <v-card darl tile flat color="rgb(41, 43, 47)" height="70">
@@ -123,13 +141,14 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
-import EmojiContainer from "@/components/newemojis/EmojiContainer";
+import EmojiItem from "@/components/newemojis/EmojiItem";
+
 import EmojiSave from "@/components/newemojis/EmojiSave";
 
 export default {
   components: {
     EmojiGuildItem,
-    EmojiContainer,
+    EmojiItem,
     EmojiSave
   },
   data() {
