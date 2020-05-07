@@ -21,18 +21,11 @@ export default {
   props: {
     emoji: String
   },
-  data() {
-    return {
-      hover: false
-    };
-  },
   methods: {
     onEnter() {
-      this.hover = true;
       this.$emit("onHover", this.emoji);
     },
     onLeave() {
-      this.hover = false;
       this.$emit("onHover", null);
     }
   }
