@@ -2,7 +2,10 @@
   <v-container color="#2f3136" v-resize="onResize">
     <v-row no-gutters>
       <v-col align-self="end">
-        <h1 class="display-1 font-weight-bold mb-4">Discord Integration</h1>
+        <h1 class="display-1 font-weight-bold mb-4">
+          Discord Integration
+          <span class="title red--text">Beta</span>
+        </h1>
       </v-col>
       <v-spacer></v-spacer>
       <v-banner class="title font-weight-regular white--text" color="#2f3136">
@@ -54,7 +57,12 @@
           class="overflow-y-auto"
           id="emoji-box"
         >
-          <template v-if="!search">
+          <v-container v-if="!isFetched" fill-height>
+            <v-layout justify-center align-center>
+              <v-progress-circular indeterminate :size="70" :width="7"></v-progress-circular>
+            </v-layout>
+          </v-container>
+          <template v-else-if="!search">
             <v-card
               dark
               tile
@@ -98,7 +106,11 @@
             </v-container>
           </v-card>
         </v-card>
-        <EmojiBottomBar :emoji="hoverEmoji" :guild="hoverEmoji ? getGuild(hoverEmoji.guildid) : null" :user="hoverEmoji ? getUser(hoverEmoji.userid) : null"></EmojiBottomBar>
+        <EmojiBottomBar
+          :emoji="hoverEmoji"
+          :guild="hoverEmoji ? getGuild(hoverEmoji.guildid) : null"
+          :user="hoverEmoji ? getUser(hoverEmoji.userid) : null"
+        ></EmojiBottomBar>
       </v-col>
       <v-col lg="2">
         <v-card
