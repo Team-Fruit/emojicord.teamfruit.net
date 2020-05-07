@@ -19,7 +19,7 @@
     <v-row no-gutters justify="end">
       <v-col lg="2">
         <v-card class="pa-2" outlined tile flat :height="contentHeight" color="#23272A">
-          <v-list dark color="#23272A" class="overflow-y-auto">
+          <v-list dark color="#23272A" :max-height="contentHeight" class="overflow-y-auto">
             <EmojiGuildItem
               :guilds="getGuilds"
               :expand="availableGroupExpand"
