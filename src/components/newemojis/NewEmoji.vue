@@ -72,7 +72,7 @@
               :key="guild.id"
               :id="`guild-${guild.id}`"
             >
-              <v-banner dark tile sticky color="#2C2F33">
+              <v-banner dark tile sticky color="#2C2F33" v-if="getFilteredEmojis.findIndex(emoji => emoji.guildid == guild.id) >= 0">
                 <v-avatar>
                   <v-img
                     v-if="guild.icon"
@@ -84,7 +84,7 @@
               <v-container>
                 <v-row class="px-1 mx-auto" justify="start">
                   <EmojiItem
-                    v-for="emoji in getEmojisByGuildID(guild.id)"
+                    v-for="emoji in getFilteredEmojis.filter(emoji => emoji.guildid == guild.id)"
                     :key="emoji.id"
                     :emoji="emoji"
                     @onHover="onEmojiHover"
@@ -97,7 +97,7 @@
             <v-container>
               <v-row class="px-1 mx-auto" justify="start">
                 <EmojiItem
-                  v-for="emoji in getFilteredEmojis"
+                  v-for="emoji in getSearchedEmojis"
                   :key="emoji.id"
                   :emoji="emoji"
                   @onHover="onEmojiHover"
@@ -115,7 +115,7 @@
       <v-col lg="2">
         <v-card
           dark
-          class="pa-2 d-flex flex-column"
+          class="pa-2 d-flex flex-column overflow-y-auto"
           outlined
           tile
           flat
@@ -135,6 +135,55 @@
                 class="ml-2"
               ></v-text-field>
             </v-card>
+            <v-list dark color="#2f3136" :max-height="contentHeight" class="overflow-y-auto">
+              <v-subheader dark>Filter</v-subheader>
+              <v-list-item-group v-model="filters" multiple>
+                <v-list-item inactive>
+                  <template v-slot:default="{ active, toggle }">
+                    <v-list-item-action>
+                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>Enabled</v-list-item-title>
+                      <v-list-item-subtitle>in Emojicord</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+                </v-list-item>
+                <v-list-item inactive>
+                  <template v-slot:default="{ active, toggle }">
+                    <v-list-item-action>
+                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>Disabled</v-list-item-title>
+                      <v-list-item-subtitle>in Emojicord</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+                </v-list-item>
+                <v-list-item inactive disabled>
+                  <template v-slot:default="{ active, toggle }">
+                    <v-list-item-action>
+                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>Deleted</v-list-item-title>
+                      <v-list-item-subtitle>Coming Soon</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+                </v-list-item>
+                <v-list-item inactive disabled>
+                  <template v-slot:default="{ active, toggle }">
+                    <v-list-item-action>
+                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>Unavailable</v-list-item-title>
+                      <v-list-item-subtitle>Coming Soon</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </template>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
             <EmojiSave></EmojiSave>
           </template>
         </v-card>
@@ -166,7 +215,8 @@ export default {
       availableGroupExpand: true,
       guilds: null,
       search: "",
-      hoverEmoji: null
+      hoverEmoji: null,
+      filters: [0, 1]
     };
   },
   mounted() {
@@ -183,10 +233,13 @@ export default {
       "getEmojisByGuildID",
       "getUser"
     ]),
-    getFilteredEmojis() {
-      return this.getEmojis.emojis.filter(emoji =>
+    getSearchedEmojis() {
+      return this.getFilteredEmojis.filter(emoji =>
         emoji.name.toLowerCase().includes(this.search)
       );
+    },
+    getFilteredEmojis() {
+      return this.getEmojis.emojis.filter(emoji => this.testFilter(emoji));
     },
     getInviteableGuilds() {
       if (!this.guilds) return null;
@@ -223,6 +276,11 @@ export default {
     },
     onEmojiHover(emoji) {
       this.hoverEmoji = emoji;
+    },
+    testFilter(emoji) {
+      if (emoji.enabled && !this.filters.includes(0)) return false;
+      if (!emoji.enabled && !this.filters.includes(1)) return false;
+      return true;
     }
   }
 };
