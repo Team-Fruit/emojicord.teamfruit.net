@@ -140,50 +140,10 @@
             <v-list dark color="#2f3136" :max-height="contentHeight" class="overflow-y-auto">
               <v-subheader dark>Filter</v-subheader>
               <v-list-item-group v-model="filters" multiple>
-                <v-list-item inactive>
-                  <template v-slot:default="{ active, toggle }">
-                    <v-list-item-action>
-                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>Enabled</v-list-item-title>
-                      <v-list-item-subtitle>in Emojicord</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </template>
-                </v-list-item>
-                <v-list-item inactive>
-                  <template v-slot:default="{ active, toggle }">
-                    <v-list-item-action>
-                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>Disabled</v-list-item-title>
-                      <v-list-item-subtitle>in Emojicord</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </template>
-                </v-list-item>
-                <v-list-item inactive disabled>
-                  <template v-slot:default="{ active, toggle }">
-                    <v-list-item-action>
-                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>Deleted</v-list-item-title>
-                      <v-list-item-subtitle>Coming Soon</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </template>
-                </v-list-item>
-                <v-list-item inactive disabled>
-                  <template v-slot:default="{ active, toggle }">
-                    <v-list-item-action>
-                      <v-checkbox v-model="active" @click="toggle"></v-checkbox>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title>Unavailable</v-list-item-title>
-                      <v-list-item-subtitle>Coming Soon</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </template>
-                </v-list-item>
+                <EmojiFilterItem title="Enabled" subtitle="inEmojicord"></EmojiFilterItem>
+                <EmojiFilterItem title="Disabled" subtitle="inEmojicord"></EmojiFilterItem>
+                <EmojiFilterItem title="Coming Soon" subtitle="Coming Soon" disabled></EmojiFilterItem>
+                <EmojiFilterItem title="Unavailable" subtitle="Coming Soon" disabled></EmojiFilterItem>
               </v-list-item-group>
             </v-list>
             <EmojiSave></EmojiSave>
@@ -200,13 +160,15 @@ import EmojiGuildItem from "@/components/newemojis/EmojiGuildItem";
 import EmojiItem from "@/components/newemojis/EmojiItem";
 import EmojiBottomBar from "@/components/newemojis/EmojiBottomBar";
 import EmojiSave from "@/components/newemojis/EmojiSave";
+import EmojiFilterItem from "@/components/newemojis/EmojiFilterItem";
 
 export default {
   components: {
     EmojiGuildItem,
     EmojiItem,
     EmojiBottomBar,
-    EmojiSave
+    EmojiSave,
+    EmojiFilterItem
   },
   data() {
     return {
