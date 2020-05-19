@@ -145,6 +145,7 @@
                 <EmojiFilterItem title="Coming Soon" subtitle="Coming Soon" disabled></EmojiFilterItem>
                 <EmojiFilterItem title="Unavailable" subtitle="Coming Soon" disabled></EmojiFilterItem>
               </v-list-item-group>
+              <v-subheader dark>Selection Coming Soon</v-subheader>
             </v-list>
             <EmojiSave></EmojiSave>
           </template>
