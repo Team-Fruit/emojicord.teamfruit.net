@@ -72,25 +72,27 @@
               :key="guild.id"
               :id="`guild-${guild.id}`"
             >
-              <v-banner dark tile sticky color="#2C2F33" v-if="getFilteredEmojis.findIndex(emoji => emoji.guildid == guild.id) >= 0">
-                <v-avatar>
-                  <v-img
-                    v-if="guild.icon"
-                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
-                  ></v-img>
-                </v-avatar>
-                {{ guild.name }}
-              </v-banner>
-              <v-container>
-                <v-row class="px-1 mx-auto" justify="start">
-                  <EmojiItem
-                    v-for="emoji in getFilteredEmojis.filter(emoji => emoji.guildid == guild.id)"
-                    :key="emoji.id"
-                    :emoji="emoji"
-                    @onHover="onEmojiHover"
-                  ></EmojiItem>
-                </v-row>
-              </v-container>
+              <template v-if="getFilteredEmojis.findIndex(emoji => emoji.guildid == guild.id) >= 0">
+                <v-banner dark tile sticky color="#2C2F33">
+                  <v-avatar>
+                    <v-img
+                      v-if="guild.icon"
+                      :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=64`"
+                    ></v-img>
+                  </v-avatar>
+                  {{ guild.name }}
+                </v-banner>
+                <v-container>
+                  <v-row class="px-1 mx-auto" justify="start">
+                    <EmojiItem
+                      v-for="emoji in getFilteredEmojis.filter(emoji => emoji.guildid == guild.id)"
+                      :key="emoji.id"
+                      :emoji="emoji"
+                      @onHover="onEmojiHover"
+                    ></EmojiItem>
+                  </v-row>
+                </v-container>
+              </template>
             </v-card>
           </template>
           <v-card v-else dark tile elevation="0" color="#2C2F33">
