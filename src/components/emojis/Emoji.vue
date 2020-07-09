@@ -7,10 +7,19 @@
         <p
           class="title font-weight-regular text"
         >To get emoji from Discord, Bot must belong. Invite Emojicord bot to use your Emoji!</p>
+        <p class="title font-weight-regular text">
+          <router-link to="/newemoji">New UI available now!</router-link>
+        </p>
       </v-container>
       <v-card-title>
         <v-row no-gutters style="height: 50px;">
-          <v-col v-if="!selected.length" cols="12" sm="7" align-self="center" class="text">Your Emoji</v-col>
+          <v-col
+            v-if="!selected.length"
+            cols="12"
+            sm="7"
+            align-self="center"
+            class="text"
+          >Your Emoji</v-col>
           <v-flex v-else>
             <v-col class="align-content-end">
               {{ selected.length }}
