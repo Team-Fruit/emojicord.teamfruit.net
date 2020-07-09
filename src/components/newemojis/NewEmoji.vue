@@ -142,7 +142,7 @@
               <v-list-item-group v-model="filters" multiple>
                 <EmojiFilterItem title="Enabled" subtitle="inEmojicord"></EmojiFilterItem>
                 <EmojiFilterItem title="Disabled" subtitle="inEmojicord"></EmojiFilterItem>
-                <EmojiFilterItem title="Coming Soon" subtitle="Coming Soon" disabled></EmojiFilterItem>
+                <EmojiFilterItem title="Deleted" subtitle="Coming Soon" disabled></EmojiFilterItem>
                 <EmojiFilterItem title="Unavailable" subtitle="Coming Soon" disabled></EmojiFilterItem>
               </v-list-item-group>
               <v-subheader dark>Selection Coming Soon</v-subheader>
