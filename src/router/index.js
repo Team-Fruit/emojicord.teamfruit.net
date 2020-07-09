@@ -51,7 +51,8 @@ const router = new Router({
 
         if (query.key && query.port)
           Store.dispatch('minecraft/connect', query)
-        return { path: '/minecraft/guild', query: null }
+        // return { path: '/minecraft/guild', query: null }
+        return { path: '/newemoji', query: null }
       },
       meta: {
         isPublic: true
@@ -98,7 +99,10 @@ const router = new Router({
     {
       path: '/newemoji',
       name: 'beta',
-      component: NewEmoji
+      component: NewEmoji,
+      meta: {
+        minecraftMode: true
+      }
     },
     // {
     //   path: '/test',
