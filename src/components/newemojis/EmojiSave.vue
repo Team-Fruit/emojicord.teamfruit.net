@@ -1,7 +1,7 @@
 <template>
   <v-card dark class="mt-auto" outlined tile color="#2f3136">
-    <span v-if="!isConnected" class>Open from Minecraft to Save</span>
-    <v-btn block color="warning" :disabled="!isConnected" @click="save">Save</v-btn>
+    <span v-if="!isConnected&&!saved" class>Open from Minecraft to Save</span>
+    <v-btn block color="warning" :disabled="!isConnected" @click="save">{{saved? "Saved": "Save"}}</v-btn>
   </v-card>
 </template>
 
@@ -9,6 +9,11 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  data() {
+    return {
+      saved: false
+    };
+  },
   computed: {
     ...mapGetters("emoji", ["getEmojisForMC"]),
     ...mapGetters("minecraft", ["getPort", "getKey", "isConnected"])
@@ -22,7 +27,10 @@ export default {
         key: this.getKey,
         data: this.getEmojisForMC
       }).then(res => {
-        if (res.status === 200 || res.status === 204) this.disconnect();
+        if (res.status === 200 || res.status === 204) {
+          this.disconnect();
+          this.saved = true;
+        }
       });
     }
   }
