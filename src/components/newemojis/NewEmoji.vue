@@ -140,8 +140,8 @@
             <v-list dark color="#2f3136" :max-height="contentHeight" class="overflow-y-auto">
               <v-subheader dark>Filter</v-subheader>
               <v-list-item-group v-model="filters" multiple>
-                <EmojiFilterItem title="Enabled" subtitle="inEmojicord"></EmojiFilterItem>
-                <EmojiFilterItem title="Disabled" subtitle="inEmojicord"></EmojiFilterItem>
+                <EmojiFilterItem title="Included" subtitle="inEmojicord"></EmojiFilterItem>
+                <EmojiFilterItem title="Excluded" subtitle="inEmojicord"></EmojiFilterItem>
                 <EmojiFilterItem title="Deleted" subtitle="Coming Soon" disabled></EmojiFilterItem>
                 <EmojiFilterItem title="Unavailable" subtitle="Coming Soon" disabled></EmojiFilterItem>
               </v-list-item-group>
