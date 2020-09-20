@@ -35,7 +35,7 @@
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-menu
-          v-if="login"
+          v-if="loggedin"
           v-model="menu"
           bottom
           dark
@@ -68,7 +68,7 @@
             </v-container>
           </v-card>
         </v-menu>
-        <v-btn v-else rounded outlined dark href="https://api1.teamfruit.net/auth/login">
+        <v-btn v-else rounded outlined dark @click="login" href="https://api1.teamfruit.net/auth/login">
           <v-icon left small>fab fa-discord</v-icon>Login
         </v-btn>
       </v-toolbar>
@@ -90,13 +90,16 @@ export default {
       this.menu = false;
       this.$store.dispatch("auth/logout");
       this.$router.push("/");
+    },
+    login() {
+      this.$store.dispatch("auth/setRedirectPath", this.$route.path)
     }
   },
   computed: {
     ...mapGetters({
       avater: "auth/getAvaterURL",
       user: "auth/getUser",
-      login: "auth/isLoggedin",
+      loggedin: "auth/isLoggedin",
       minecraft: "minecraft/isConnected"
     })
   }

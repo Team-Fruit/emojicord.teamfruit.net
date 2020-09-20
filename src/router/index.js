@@ -35,9 +35,10 @@ const router = new Router({
         if (query.error_description)
           Store.dispatch('alert/create', { message: query.error_description, type: 'error' })
 
-        if (Store.getters["minecraft/isConnected"])
-          return { path: '/minecraft/guild', query: null }
-        return { path: '/', query: null }
+        // if (Store.getters["minecraft/isConnected"])
+        //   return { path: '/minecraft/guild', query: null }
+        // return { path: '/', query: null }
+        return { path : Store.getters["auth/getRedirectPath"], query: null }
       },
       meta: {
         isPublic: true,
@@ -136,6 +137,7 @@ router.beforeEach((to, from, next) => {
   if (!to.matched.some(page => page.meta.minecraftMode))
     Store.dispatch("minecraft/disconnect")
   if (!to.matched.some(page => page.meta.isPublic) && Date.now() / 1000 > Store.state.auth.user.exp) {
+    Store.dispatch("auth/setRedirectPath", to.path)
     window.location = "https://api1.teamfruit.net/auth/login"
     // Vue.notify({
     //   group: "alert",
@@ -149,8 +151,10 @@ router.beforeEach((to, from, next) => {
     next()
   else if (to.matched.some(page => page.meta.notfound))
     next()
-  else
+  else {
+    Store.dispatch("auth/setRedirectPath", to.path)
     window.location = "https://api1.teamfruit.net/auth/login"
+  }
 })
 
 export default router

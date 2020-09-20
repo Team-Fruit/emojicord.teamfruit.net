@@ -4,7 +4,8 @@ export default {
     namespaced: true,
     state: {
         token: '',
-        user: {}
+        user: {},
+        redirect: ''
     },
     mutations: {
         create(state, { token, user }) {
@@ -14,6 +15,9 @@ export default {
         destroy(state) {
             state.token = ''
             state.user = {}
+        },
+        setRedirect(state, { path }) {
+            state.redirect = path
         }
     },
     actions: {
@@ -26,6 +30,9 @@ export default {
         },
         logout({ commit }) {
             commit('destroy')
+        },
+        setRedirectPath({ commit }, path) {
+            commit('setRedirect', { path })
         }
     },
     getters: {
@@ -42,6 +49,9 @@ export default {
             if (state.user.avater)
                 return 'https://cdn.discordapp.com/avatars/' + state.user.id + '/' + state.user.avater
             return 'https://cdn.discordapp.com/embed/avatars/' + state.user.discriminator % 5 + '.png'
+        },
+        getRedirectPath: state => {
+            return state.redirect
         }
     }
 }
