@@ -1,8 +1,8 @@
 <template>
   <v-list-item inactive :disabled="disabled">
-    <template v-slot:default="{ active, toggle }">
+    <template v-slot:default="{ active }">
       <v-list-item-action>
-        <v-checkbox v-model="active" @click="toggle"></v-checkbox>
+        <v-checkbox :input-value="active"></v-checkbox>
       </v-list-item-action>
       <v-list-item-content>
         <v-list-item-title>{{ title }}</v-list-item-title>
