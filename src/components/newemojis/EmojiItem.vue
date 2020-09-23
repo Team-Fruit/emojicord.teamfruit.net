@@ -96,10 +96,4 @@ export default {
 .emoji:hover {
   background-color: rgb(79, 84, 92);
 }
-
-.emojiname {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: top;
-}
 </style>
