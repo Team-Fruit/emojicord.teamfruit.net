@@ -203,7 +203,7 @@ export default {
       );
     },
     getFilteredEmojis() {
-      return this.getEmojis.emojis.filter(emoji => this.testFilter(emoji));
+      return this.getEmojis.filter(emoji => this.testFilter(emoji));
     },
     getInviteableGuilds() {
       if (!this.guilds) return null;

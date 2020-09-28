@@ -1,19 +1,24 @@
+import Vue from 'vue'
+
 export default {
     namespaced: true,
     state: {
-        emojis: {},
+        emojis: [],
+        guilds: [],
+        users: [],
         fetched: false
     },
     mutations: {
         setEmojis(state, emojis) {
-            state.emojis = emojis
+            state.emojis = emojis.emojis
+            state.guilds = emojis.guilds
+            state.users = emojis.users
             state.fetched = true
         },
         setInclude(state, { id, include }) {
-            const i = state.emojis.emojis.findIndex((emoji) => emoji.id === id)
+            const i = state.emojis.findIndex((emoji) => emoji.id === id)
             if (i >= 0) {
-                // WIP reactive
-                state.emojis.emojis[i].enable = include
+                Vue.set(state.emojis[i], "enabled", include)
             }
         }
     },
@@ -37,26 +42,26 @@ export default {
             return state.emojis
         },
         getEmojisByGuildID: state => guildid => {
-            return state.emojis.emojis.filter(emoji => emoji.guildid == guildid)
+            return state.emojis.filter(emoji => emoji.guildid == guildid)
         },
         getGuilds: state => {
-            return state.emojis.guilds
+            return state.guilds
         },
         getGuild: state => guildid => {
-            return state.emojis.guilds.find(v => v.id == guildid);
+            return state.guilds.find(v => v.id == guildid);
         },
         getUser: state => userid => {
-            return state.emojis.users.find(v => v.id == userid);
+            return state.users.find(v => v.id == userid);
         },
         getEmojisForMC: (state, getters, _, rootGetters) => {
             return {
                 id: rootGetters["auth/getUser"].id,
                 name: `${rootGetters["auth/getUser"].username}#${rootGetters["auth/getUser"].discriminator}`,
-                groups: state.emojis.guilds
+                groups: state.guilds
                     .map(guild => guild = {
                         name: guild.name,
                         id: guild.id,
-                        emojis: getters.getEmojis.emojis.filter(emoji => emoji.enabled && emoji.guildid === guild.id)
+                        emojis: state.emojis.filter(emoji => emoji.enabled && emoji.guildid === guild.id)
                             .map(emoji => emoji = {
                                 id: emoji.id,
                                 name: emoji.name
