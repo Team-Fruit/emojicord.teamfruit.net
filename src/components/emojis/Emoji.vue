@@ -146,7 +146,7 @@ export default {
     ...mapActions("emoji", ["fetch"]),
     ...mapMutations("emoji", ["setEmojis"]),
     toggleEmoji(id) {
-      const emoji = this.getEmojis.emojis.find(i => i.id == id);
+      const emoji = this.getEmojis.find(i => i.id == id);
       this.$set(emoji, "enabled", !emoji.enabled);
     },
     toggleAllEmoji(ids) {

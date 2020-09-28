@@ -46,16 +46,16 @@ export default {
     });
   },
   computed: {
-    ...mapGetters("emoji", ["getEmojis"]),
+    ...mapGetters("emoji", ["getEmojis", "getGuilds"]),
     filteredEmojis: function() {
-      if (!this.search) return this.getEmojis.emojis;
-      return this.getEmojis.emojis.filter(emoji =>
+      if (!this.search) return this.getEmojis;
+      return this.getEmojis.filter(emoji =>
         emoji.name.toLowerCase().includes(this.search.toLowerCase().trim())
       );
     },
     filteredGuilds: function() {
       const emojis = this.filteredEmojis;
-      return this.getEmojis.guilds.filter(guild =>
+      return this.getGuilds.filter(guild =>
         emojis.some(emoji => emoji.guildid === guild.id)
       );
     }

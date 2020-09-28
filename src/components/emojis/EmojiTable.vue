@@ -2,7 +2,7 @@
   <v-data-table
     v-model="selected"
     :headers="headers"
-    :items="getEmojis.emojis"
+    :items="getEmojis"
     :search="search"
     :custom-filter="customFilter"
     :footer-props="{
