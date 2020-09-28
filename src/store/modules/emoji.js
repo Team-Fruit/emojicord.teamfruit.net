@@ -8,12 +8,24 @@ export default {
         setEmojis(state, emojis) {
             state.emojis = emojis
             state.fetched = true
+        },
+        setInclude(state, { id, include }) {
+            const i = state.emojis.emojis.findIndex((emoji) => emoji.id === id)
+            if (i >= 0) {
+                // WIP reactive
+                state.emojis.emojis[i].enable = include
+            }
         }
     },
     actions: {
         fetch({ dispatch, commit }) {
-            dispatch("http/get", "/user/emojis", { root: true }).then(res => {
+            return dispatch("http/get", "/user/emojis", { root: true }).then(res => {
                 commit("setEmojis", res.data)
+            })
+        },
+        updateInclude({ dispatch, commit }, { id, include }) {
+            return dispatch(include ? "http/put" : "http/delete", `/user/emojis/${id}`, { root: true }).then(() => {
+                commit("setInclude", { id, include })
             })
         }
     },

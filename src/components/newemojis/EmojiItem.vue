@@ -32,7 +32,7 @@
                 <v-col class="emojiname">:{{ this.emoji.name }}:</v-col>
                 <v-col class="py-0">
                   <v-switch
-                    v-model="this.emoji.enabled"
+                    v-model="include"
                     class="my-0"
                     color="blue"
                     hide-details
@@ -59,30 +59,25 @@ export default {
   data() {
     return {
       dialog: false,
+      include: this.emoji.enabled,
     };
   },
   methods: {
-    ...mapActions("http", ["put", "delete"]),
+    ...mapActions("emoji", ["updateInclude"]),
     onEnter() {
       this.$emit("onHover", this.emoji);
     },
     onLeave() {
       this.$emit("onHover", null);
     },
-    // TODO: コンポーネントでやるのは不適切で、Vuexに持っていくべき.
-    // TODO: 親に渡していないので何もアップデートされません、上記で同時に解決出来そう.
     onChangeInclude() {
-      if (this.emoji.enable) {
-        this.put(`/user/emojis/${this.emoji.id}`).catch((err) => {
-          this.emoji.enable = false;
-          return err;
-        });
-      } else {
-        this.delete(`/user/emojis/${this.emoji.id}`).catch((err) => {
-          this.emoji.enable = true;
-          return err;
-        });
-      }
+      this.updateInclude({
+        id: this.emoji.id,
+        include: this.include,
+      }).catch((err) => {
+        this.include = !this.include;
+        return err;
+      });
     },
   },
 };
