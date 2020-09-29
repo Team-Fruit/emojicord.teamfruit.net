@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/Home'
-import Guild from '@/components/guilds/Guild'
-import Emoji from '@/components/emojis/Emoji'
-import Minecraft from '@/components/minecraft/Minecraft'
-import Save from '@/components/minecraft/Save'
 import NotFound from '@/components/NotFound'
 import NewEmoji from '@/components/newemojis/NewEmoji'
 // import Test from '@/components/Test'
@@ -35,9 +31,6 @@ const router = new Router({
         if (query.error_description)
           Store.dispatch('alert/create', { message: query.error_description, type: 'error' })
 
-        // if (Store.getters["minecraft/isConnected"])
-        //   return { path: '/minecraft/guild', query: null }
-        // return { path: '/', query: null }
         return { path : Store.getters["auth/getRedirectPath"], query: null }
       },
       meta: {
@@ -52,49 +45,10 @@ const router = new Router({
 
         if (query.key && query.port)
           Store.dispatch('minecraft/connect', query)
-        // return { path: '/minecraft/guild', query: null }
         return { path: '/newemoji', query: null }
       },
       meta: {
         isPublic: true
-      }
-    },
-    {
-      path: '/guild',
-      name: 'guilds',
-      component: Guild
-    },
-    {
-      path: '/emoji',
-      name: 'emojis',
-      component: Emoji
-    },
-    {
-      path: '/minecraft',
-      component: Minecraft,
-      children: [
-        {
-          path: 'guild',
-          name: 'guild',
-          component: Guild
-        },
-        {
-          path: 'emoji',
-          name: 'emoji',
-          component: Emoji
-        },
-        {
-          path: 'save',
-          name: 'save',
-          component: Save
-        },
-        {
-          path: '',
-          redirect: { path: '/minecraft/guild' }
-        }
-      ],
-      meta: {
-        minecraftMode: true
       }
     },
     {
