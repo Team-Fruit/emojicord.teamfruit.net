@@ -7,14 +7,14 @@
           <span class="title red--text">Beta</span>
         </h1>
       </v-col>
-      <v-spacer></v-spacer>
+      <!-- <v-spacer></v-spacer>
       <v-banner class="title font-weight-regular white--text" color="#2f3136">
         Legacy UI
         <template v-slot:actions>
           <v-btn depressed color="success" to="/guild">Guilds</v-btn>
           <v-btn depressed color="success" to="/emoji">Emojis</v-btn>
         </template>
-      </v-banner>
+      </v-banner> -->
     </v-row>
     <v-row no-gutters justify="end">
       <v-col lg="2">
