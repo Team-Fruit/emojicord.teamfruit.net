@@ -31,7 +31,7 @@
     "@vue/cli-service": "^4.5.15",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.43.4",
     "sass-loader": "^10.2.0",
     "stylus": "^0.55.0",
@@ -49,7 +49,11 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "vue/multi-word-component-names": ["error", {
+        "ignores": ["Header", "Home"]
+      }]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
