@@ -26,11 +26,12 @@
     "@babel/preset-env": "7.19.3",
     "@fortawesome/fontawesome-free": "6.2.0",
     "@mdi/font": "7.0.96",
-    "@vue/cli-plugin-babel": "4.5.19",
-    "@vue/cli-plugin-eslint": "4.5.19",
-    "@vue/cli-service": "4.5.19",
-    "babel-eslint": "10.1.0",
-    "eslint": "6.8.0",
+    "@vue/cli-plugin-babel": "5.0.8",
+    "@vue/cli-plugin-eslint": "5.0.8",
+    "@vue/cli-service": "5.0.8",
+    "@babel/core": "7.19.3",
+    "@babel/eslint-parser": "7.19.1",
+    "eslint": "8.25.0",
     "eslint-plugin-vue": "8.7.1",
     "sass": "1.32.12",
     "sass-loader": "10.3.1",
@@ -50,12 +51,19 @@
       "eslint:recommended"
     ],
     "rules": {
-      "vue/multi-word-component-names": ["error", {
-        "ignores": ["Header", "Home"]
-      }]
+      "vue/multi-word-component-names": [
+        "error",
+        {
+          "ignores": [
+            "Header",
+            "Home"
+          ]
+        }
+      ]
     },
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
     }
   },
   "postcss": {
