@@ -41,7 +41,7 @@ export default {
         postLocalHost(_, { port, key, data }) {
             return axios({
                 method: 'post',
-                url: 'http://localhost:' + port,
+                url: 'http://localhost.teamfruit.net:' + port,
                 data: data,
                 headers: {
                     'Content-Type': 'application/json',
