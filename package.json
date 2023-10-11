@@ -33,7 +33,7 @@
     "eslint": "8.51.0",
     "eslint-plugin-vue": "8.7.1",
     "prerender-spa-plugin-next": "4.2.3",
-    "sass": "1.69.0",
+    "sass": "1.69.2",
     "sass-loader": "13.3.2",
     "stylus": "0.60.0",
     "stylus-loader": "7.1.3",
